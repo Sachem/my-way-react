@@ -1,0 +1,7 @@
+{
+  "name": "my-way-react",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
