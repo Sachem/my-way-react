@@ -1,0 +1,27 @@
+.text-input::-webkit-input-placeholder {
+    text-align: right;
+  }
+  
+  .text-input:-moz-placeholder {
+    text-align: right;
+  }
+  
+  .text-input::-moz-placeholder {
+    text-align: right;
+  }
+  
+  .text-input:-ms-input-placeholder {
+    text-align: right;
+  }
+
+  .submitAddHabit{
+    margin: 0 auto;
+  }
+
+  .addHabitFormItem{
+    border-bottom: 1px #ddd solid;
+  }
+
+  .submitItem{
+    padding-top: 33px;
+  }
