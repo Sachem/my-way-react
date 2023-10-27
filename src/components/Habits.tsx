@@ -68,6 +68,8 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
                         name: data.name 
                     }
                 ]);
+
+                setAddHabitModalOpened(false);
             })
             .catch(error => {
                 console.error(error);

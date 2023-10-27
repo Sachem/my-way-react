@@ -15,10 +15,18 @@ export default function AddHabit({ isOpen, habitCategories, onClose, onSubmit })
         register,
         handleSubmit,
         setValue,
-        formState: { errors },
+        reset,
+        formState,
+        formState: { errors, isSubmitSuccessful },
     } = useForm({
         mode: "onTouched",
-		reValidateMode: "onChange"
+		reValidateMode: "onChange",
+        defaultValues: {
+            measurable: 0,
+            name: "",
+            category_id: null,
+            goal: ""
+        }
     });
 
     function setMeasurableValue(data){
@@ -29,6 +37,17 @@ export default function AddHabit({ isOpen, habitCategories, onClose, onSubmit })
     const onAddHabit = data => {
         onSubmit(data);
     }
+    
+    React.useEffect(() => {
+        if (formState.isSubmitSuccessful) {
+            reset();
+        }
+    }, [formState, reset])
+
+    function onModalClose(){
+        onClose();
+        reset();
+    }
 
     return (
         <IonModal isOpen={isOpen} >
@@ -36,7 +55,7 @@ export default function AddHabit({ isOpen, habitCategories, onClose, onSubmit })
                 <IonToolbar>
                     <IonTitle>Create New Habit</IonTitle>
                     <IonButtons slot="end">
-                        <IonButton onClick={onClose}>Close</IonButton>
+                        <IonButton onClick={onModalClose}>Close</IonButton>
                     </IonButtons>
                 </IonToolbar>
             </IonHeader>
