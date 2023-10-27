@@ -3,9 +3,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import AddHabit from '../components/AddHabit';
+import Habit from '../components/Habit';
+
 
 import { IonContent, IonItem, IonLabel, IonList, IonButton, IonIcon, IonAlert } from '@ionic/react';
-import { createOutline, trashOutline } from 'ionicons/icons';
 
 
 interface ContainerProps {
@@ -52,9 +53,6 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
         });
     }, []);
 
-    function editHabit(habitId: number){
-        console.log("Editing habit ID: " + habitId);
-    }
 
     const onAddHabitSubmit = data => {
 
@@ -82,7 +80,7 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
     
     }
 
-    function deleteHabit(habitId: number){
+    function onHabitDelete(habitId: number){
         console.log("deleting habit ID: " + habitId);
 
         axios.delete('http://127.0.0.1:8000/api/habits/' + habitId, config)
@@ -104,47 +102,11 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
             <IonContent color="light">
                 <IonList inset={true}>
                 {habits.map(habit => (
-                                    
-                    <IonItem key={habit.id}>
-                        <IonLabel>{habit.name}</IonLabel>
-                        <IonButton 
-                            onClick={() => editHabit(habit.id)}
-                            fill="clear"
-                            slot='end'
-                            size='large'
-                        >
-                            <IonIcon icon={createOutline}></IonIcon>
-                        </IonButton>
-                        <IonButton 
-                            id={"alert-delete-habit-" + habit.id} 
-                            fill="clear"
-                            slot='end'
-                            size='large'
-                        >
-                            <IonIcon icon={trashOutline}></IonIcon>
-                        </IonButton>
-                        <IonAlert
-                            header="Are you sure you want to delete this habit?"
-                            trigger={"alert-delete-habit-" + habit.id} 
-                            buttons={[
-                                {
-                                    text: 'No',
-                                    role: 'cancel',
-                                    handler: () => {
-                                        console.log('Alert canceled');
-                                    },
-                                },
-                                {
-                                    text: 'Yes',
-                                    role: 'confirm',
-                                    handler: () => {
-                                        deleteHabit(habit.id);
-                                    },
-                                },
-                            ]}
-                            onDidDismiss={({ detail }) => console.log(`Dismissed with role: ${detail.role}`)}
-                        ></IonAlert>
-                    </IonItem>
+                    <Habit
+                        key={habit.id}
+                        habit={habit}
+                        onDelete={() => onHabitDelete(habit.id)}
+                    /> 
                 ))}
                 </IonList>
             </IonContent>
