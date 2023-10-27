@@ -2,13 +2,13 @@ import './Habit.css';
 
 import { 
     IonAlert,
-    IonButton, IonIcon, IonItem, IonLabel 
+    IonButton, IonCheckbox, IonIcon, IonItem, IonLabel 
 } from '@ionic/react';
 
-import { createOutline, trashOutline } from 'ionicons/icons';
+import { addCircleOutline, createOutline, trashOutline } from 'ionicons/icons';
 
 
-export default function Habit({ habit, onDelete }) {
+export default function Habit({ habit, onDelete, onMarkCompleted }) {
 
     console.log(habit);    
 
@@ -18,7 +18,25 @@ export default function Habit({ habit, onDelete }) {
 
     return (
         <IonItem>
+            <IonCheckbox 
+                disabled={habit.measurable} 
+                checked={habit.progress['2023-10-27'].done}
+                onClick={() => onMarkCompleted(habit.id)}
+            ></IonCheckbox>
             <IonLabel>{habit.name}</IonLabel>
+            {
+                habit.measurable == 1 && <>
+                    
+                    <IonButton 
+                        fill="clear"
+                    >
+                        <IonIcon icon={addCircleOutline}></IonIcon>
+                    </IonButton>
+                    <IonLabel>
+                        Progress: { habit.progress['2023-10-27'].count } / { habit.goal } 
+                    </IonLabel>
+                </>
+            }
             <IonButton 
                 onClick={() => editHabit(habit.id)}
                 fill="clear"
@@ -42,9 +60,6 @@ export default function Habit({ habit, onDelete }) {
                     {
                         text: 'No',
                         role: 'cancel',
-                        handler: () => {
-                            console.log('Alert canceled');
-                        },
                     },
                     {
                         text: 'Yes',

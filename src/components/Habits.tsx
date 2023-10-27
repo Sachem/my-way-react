@@ -16,6 +16,10 @@ interface ContainerProps {
 interface Habit {
      id: number;
      name: string;
+     category_id: number;
+     measurable: number;
+     goal: number;
+     progress: any;
 }
  
 
@@ -68,7 +72,11 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
                     ...habits,
                     { 
                         id: response.data.id, 
-                        name: data.name 
+                        name: data.name, 
+                        category_id: data.category_id, 
+                        measurable: data.measurable, 
+                        goal: data.goal,
+                        progress: [] 
                     }
                 ]);
 
@@ -96,6 +104,27 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
                 console.error(error);
             });
     }
+
+    function onMarkHabitCompleted(habit: Habit){
+
+
+        let isChecked = habit.progress['2023-10-27'].done;
+        isChecked = ! isChecked;
+        habit.progress['2023-10-27'].done = isChecked;
+
+        console.log("marking habit ID: " + habit.id+ " as "+(isChecked ? '' : 'not ')+"completed");
+
+
+        axios.post('http://127.0.0.1:8000/api/habit/mark-completed/' + habit.id, config)
+            .then(response => {
+                console.log("marked completed");
+                console.log(response.data);
+                
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
     
     return (
         <>
@@ -106,6 +135,7 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
                         key={habit.id}
                         habit={habit}
                         onDelete={() => onHabitDelete(habit.id)}
+                        onMarkCompleted={() => onMarkHabitCompleted(habit)}
                     /> 
                 ))}
                 </IonList>
