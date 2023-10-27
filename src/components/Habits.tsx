@@ -24,16 +24,16 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
     const [habitCategories, setHabitCategories] = useState([]);
     const [addHabitModalOpened, setAddHabitModalOpened] = useState(false);
 
-    const token = '6|ITI2rMrjW04dgvoRT0SvKeIorEOIvt4np9vuHoUU08c30be0';
+    const token = '6|ITI2rMrjW04dgvoRT0SvKeIorEOIvt4np9vuHoUU08c30be0'; // TODO: remove hardcoded, when auth done
 
-    let config = { // TODO: refactor / move to one place
+    let config = { // TODO: move to some shared config 
         headers: {
           'Authorization': 'Bearer ' + token
         }
     }
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/habits', config)
+        axios.get('http://127.0.0.1:8000/api/habits', config) // TODO: read API endpoint from some shared config
         .then(response => {
             setHabits(response.data);
         })
