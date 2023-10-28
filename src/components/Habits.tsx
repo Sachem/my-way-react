@@ -10,22 +10,27 @@ import { IonContent, IonItem, IonLabel, IonList, IonButton, IonIcon, IonAlert } 
 
 
 interface ContainerProps {
-     name: string;
+    name: string;
 }
 
 interface Habit {
-     id: number;
-     name: string;
-     category_id: number;
-     measurable: number;
-     goal: number;
-     progress: any;
+    id: number;
+    name: string;
+    category_id: number;
+    measurable: number;
+    goal: number;
+    progress: any;
+}
+
+interface ProgressDate {
+    date: string;
 }
  
 
 const Habits: React.FC<ContainerProps> = ({ name }) => {
 
     const [habits, setHabits] = useState<Habit[]>([]);
+    const [dates, setDates] = useState<ProgressDate[]>([]);
     const [habitCategories, setHabitCategories] = useState([]);
     const [addHabitModalOpened, setAddHabitModalOpened] = useState(false);
 
@@ -40,7 +45,8 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
     useEffect(() => {
         axios.get('http://127.0.0.1:8000/api/habits', config) // TODO: read API endpoint from some shared config
         .then(response => {
-            setHabits(response.data);
+            setHabits(response.data.data);
+            setDates(response.data.meta.dates);
         })
         .catch(error => {
             console.error(error);
@@ -105,19 +111,23 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
             });
     }
 
-    function onMarkHabitCompleted(habit: Habit){
+    function onMarkHabitCompleted(habit: Habit, date: string){
 
 
-        let isChecked = habit.progress['2023-10-27'].done;
+        let isChecked = habit.progress[0].done;
         isChecked = ! isChecked;
-        habit.progress['2023-10-27'].done = isChecked;
+        habit.progress[0].done = isChecked;
 
         console.log("marking habit ID: " + habit.id+ " as "+(isChecked ? '' : 'not ')+"completed");
 
-
-        axios.post('http://127.0.0.1:8000/api/habit/mark-completed/' + habit.id, config)
+        const data = {
+            'date': dates[0],
+            'done': isChecked
+        };
+        
+        axios.post('http://127.0.0.1:8000/api/habit/mark-completed/' + habit.id, data, config)
             .then(response => {
-                console.log("marked completed");
+                console.log("request successful");
                 console.log(response.data);
                 
             })
@@ -135,7 +145,7 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
                         key={habit.id}
                         habit={habit}
                         onDelete={() => onHabitDelete(habit.id)}
-                        onMarkCompleted={() => onMarkHabitCompleted(habit)}
+                        onMarkCompleted={(date: string) => onMarkHabitCompleted(habit, date)}
                     /> 
                 ))}
                 </IonList>

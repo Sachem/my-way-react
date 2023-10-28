@@ -29,7 +29,7 @@ export default function AddHabit({ isOpen, habitCategories, onClose, onSubmit })
         }
     });
 
-    function setMeasurableValue(data){
+    function setMeasurableValue(data: number){
         setMeasurable(data);
         setValue("measurable", data ? 1 : 0 ); 
     }

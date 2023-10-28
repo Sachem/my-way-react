@@ -20,8 +20,8 @@ export default function Habit({ habit, onDelete, onMarkCompleted }) {
         <IonItem>
             <IonCheckbox 
                 disabled={habit.measurable} 
-                checked={habit.progress['2023-10-27'].done}
-                onClick={() => onMarkCompleted(habit.id)}
+                checked={habit.progress[0].done}
+                onClick={() => onMarkCompleted(habit.id, 0)}
             ></IonCheckbox>
             <IonLabel>{habit.name}</IonLabel>
             {
@@ -33,7 +33,7 @@ export default function Habit({ habit, onDelete, onMarkCompleted }) {
                         <IonIcon icon={addCircleOutline}></IonIcon>
                     </IonButton>
                     <IonLabel>
-                        Progress: { habit.progress['2023-10-27'].count } / { habit.goal } 
+                        Progress: { habit.progress[0].count } / { habit.goal } 
                     </IonLabel>
                 </>
             }
