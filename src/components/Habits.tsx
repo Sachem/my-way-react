@@ -82,7 +82,12 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
                         category_id: data.category_id, 
                         measurable: data.measurable, 
                         goal: data.goal,
-                        progress: [] 
+                        progress: {
+                            0: {
+                                'done': 0,
+                                'progress': 0
+                            }
+                        } 
                     }
                 ]);
 
@@ -113,10 +118,8 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
 
     function onMarkHabitCompleted(habit: Habit, date: string){
 
-
         let isChecked = habit.progress[0].done;
         isChecked = ! isChecked;
-        habit.progress[0].done = isChecked;
 
         console.log("marking habit ID: " + habit.id+ " as "+(isChecked ? '' : 'not ')+"completed");
 
@@ -127,8 +130,50 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
         
         axios.post('http://127.0.0.1:8000/api/habit/mark-completed/' + habit.id, data, config)
             .then(response => {
-                console.log("request successful");
-                console.log(response.data);
+                console.log("request successful, response: "+response.data);
+
+                let respHabit = response.data;
+                const nextHabits = habits.map((h, i) => {
+                    if (h.id === respHabit.id) {
+                        respHabit.progress[0].done = isChecked;
+                        return respHabit;
+                    } 
+        
+                    return h;
+                });
+        
+                setHabits(nextHabits);
+                
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+    function onChangeHabitProgress(habit: Habit, date: string, progress: number){
+
+        console.log("changing progress of habit ID: " + habit.id+ " to "+progress);
+
+        const data = {
+            'date': dates[0],
+            'progress': progress
+        };
+        
+        axios.post('http://127.0.0.1:8000/api/habit/change-progress/' + habit.id, data, config)
+            .then(response => {
+                console.log("request successful, response: "+response.data);
+
+                let respHabit = response.data;
+                const nextHabits = habits.map((h, i) => {
+                    if (h.id === respHabit.id) {
+                        respHabit.progress[0].progress = progress;
+                        return respHabit;
+                    } 
+        
+                    return h;
+                });
+        
+                setHabits(nextHabits);
                 
             })
             .catch(error => {
@@ -146,6 +191,7 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
                         habit={habit}
                         onDelete={() => onHabitDelete(habit.id)}
                         onMarkCompleted={(date: string) => onMarkHabitCompleted(habit, date)}
+                        onChangeProgress={(date: string, progress: number) => onChangeHabitProgress(habit, date, progress)}
                     /> 
                 ))}
                 </IonList>
