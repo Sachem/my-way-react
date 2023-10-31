@@ -22,14 +22,14 @@ export default function AddEditHabit({ isOpen, habitCategories, onClose, onSubmi
         mode: "onTouched",
 		reValidateMode: "onChange",
         defaultValues: {
-            measurable: false,
+            measurable: 0,
             name: "",
             category_id: null,
             goal: ""
         }
     });
 
-    function setMeasurableValue(data: number){
+    function setMeasurableValue(data: boolean){
         setMeasurable(data);
         setValue("measurable", data ? 1 : 0); 
     }
@@ -56,6 +56,7 @@ export default function AddEditHabit({ isOpen, habitCategories, onClose, onSubmi
     }, [habit]);
 
     const onAddEditHabit = data => {
+        setMeasurableValue(false);
         onSubmit(data);
     }
     
@@ -70,8 +71,15 @@ export default function AddEditHabit({ isOpen, habitCategories, onClose, onSubmi
         reset();
     }
 
+    const onDidDismiss = () => {
+        onModalClose();
+    }
+
     return (
-        <IonModal isOpen={isOpen} >
+        <IonModal 
+            isOpen={isOpen} 
+            onDidDismiss={onDidDismiss}
+        >
             <IonHeader>
                 <IonToolbar>
                     <IonTitle>{habit == null ? 'Create New Habit' : 'Edit Habit'}</IonTitle>
@@ -134,7 +142,7 @@ export default function AddEditHabit({ isOpen, habitCategories, onClose, onSubmi
                             type="submit"
                             size='large'
                             className="submitAddEditHabit"
-                        >Add Habit</IonButton>
+                        >{habit == null ? 'Create' : 'Update'}</IonButton>
                     </IonItem>
                     </form>
                 </IonList>
