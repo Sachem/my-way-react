@@ -1,4 +1,4 @@
-import './AddHabit.css';
+import './AddEditHabit.css';
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -7,7 +7,7 @@ import {
     IonSelect, IonSelectOption, IonItem, IonList, IonNote, IonLabel, IonToggle, IonBadge 
 } from '@ionic/react';
 
-export default function AddHabit({ isOpen, habitCategories, onClose, onSubmit }) {
+export default function AddEditHabit({ isOpen, habitCategories, onClose, onSubmit, habit }) {
 
     const [measurable, setMeasurable] = useState(false);
 
@@ -22,7 +22,7 @@ export default function AddHabit({ isOpen, habitCategories, onClose, onSubmit })
         mode: "onTouched",
 		reValidateMode: "onChange",
         defaultValues: {
-            measurable: 0,
+            measurable: false,
             name: "",
             category_id: null,
             goal: ""
@@ -31,10 +31,31 @@ export default function AddHabit({ isOpen, habitCategories, onClose, onSubmit })
 
     function setMeasurableValue(data: number){
         setMeasurable(data);
-        setValue("measurable", data ? 1 : 0 ); 
+        setValue("measurable", data ? 1 : 0); 
     }
 
-    const onAddHabit = data => {
+    useEffect(() => {
+        console.log("EFFECT. Edited habit: ", habit);
+
+        if (habit == null) {
+            setValue("name", ""); 
+            setValue("category_id", null); 
+            setValue("measurable", 0); 
+            setValue("goal", ""); 
+            
+            setMeasurable(false);
+        }
+        else {
+            setValue("name", habit.name); 
+            setValue("category_id", habit.category_id); 
+            setValue("measurable", habit.measurable); 
+            setValue("goal", habit.goal); 
+
+            setMeasurable(habit.measurable == 1);
+        }
+    }, [habit]);
+
+    const onAddEditHabit = data => {
         onSubmit(data);
     }
     
@@ -53,7 +74,7 @@ export default function AddHabit({ isOpen, habitCategories, onClose, onSubmit })
         <IonModal isOpen={isOpen} >
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Create New Habit</IonTitle>
+                    <IonTitle>{habit == null ? 'Create New Habit' : 'Edit Habit'}</IonTitle>
                     <IonButtons slot="end">
                         <IonButton onClick={onModalClose}>Close</IonButton>
                     </IonButtons>
@@ -61,7 +82,7 @@ export default function AddHabit({ isOpen, habitCategories, onClose, onSubmit })
             </IonHeader>
             <IonContent className="ion-padding">
                 <IonList lines="none">
-                    <form onSubmit={ handleSubmit(onAddHabit) }>
+                    <form onSubmit={ handleSubmit(onAddEditHabit) }>
                     <input 
                         value="0"
                         type="hidden"
@@ -89,7 +110,8 @@ export default function AddHabit({ isOpen, habitCategories, onClose, onSubmit })
                         { errors.category_id && <IonBadge color="danger">Required</IonBadge> }
                     </IonItem>
                     <IonItem className='addHabitFormItem'>
-                        <IonToggle 
+                        <IonToggle
+                            checked={measurable} 
                             onIonChange={e => setMeasurableValue(e.detail.checked)}
                         >
                             <IonLabel>Is habit Measurable?</IonLabel>
@@ -111,7 +133,7 @@ export default function AddHabit({ isOpen, habitCategories, onClose, onSubmit })
                         <IonButton
                             type="submit"
                             size='large'
-                            className="submitAddHabit"
+                            className="submitAddEditHabit"
                         >Add Habit</IonButton>
                     </IonItem>
                     </form>

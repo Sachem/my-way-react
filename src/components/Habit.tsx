@@ -8,11 +8,7 @@ import {
 import { addCircleOutline, createOutline, trashOutline } from 'ionicons/icons';
 
 
-export default function Habit({ habit, onDelete, onMarkCompleted, onChangeProgress }) {
-
-    function editHabit(habitId: number){
-        console.log("Editing habit ID: " + habitId);
-    }
+export default function Habit({ habit, onDelete, onMarkCompleted, onChangeProgress, onEditStart }) {
 
     return (
         <IonItem>
@@ -63,7 +59,7 @@ export default function Habit({ habit, onDelete, onMarkCompleted, onChangeProgre
                 </>
             }
             <IonButton 
-                onClick={() => editHabit(habit.id)}
+                onClick={() => onEditStart(habit)}
                 fill="clear"
                 slot='end'
                 size='large'

@@ -2,7 +2,7 @@ import './Habits.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import AddHabit from '../components/AddHabit';
+import AddEditHabit from '../components/AddEditHabit';
 import Habit from '../components/Habit';
 
 
@@ -32,7 +32,8 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
     const [habits, setHabits] = useState<Habit[]>([]);
     const [dates, setDates] = useState<ProgressDate[]>([]);
     const [habitCategories, setHabitCategories] = useState([]);
-    const [addHabitModalOpened, setAddHabitModalOpened] = useState(false);
+    const [addEditHabitModalOpened, setAddEditHabitModalOpened] = useState(false);
+    const [editedHabit, setEditedHabit] = useState<null | Habit>(null);
 
     const token = '6|ITI2rMrjW04dgvoRT0SvKeIorEOIvt4np9vuHoUU08c30be0'; // TODO: remove hardcoded, when auth done
 
@@ -64,42 +65,62 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
     }, []);
 
 
-    const onAddHabitSubmit = data => {
+    const onAddEditHabitSubmit = data => {
 
-        console.log("YES");
-        console.log(data);
+        console.log("add/edit habit");
+        
+        if (editedHabit == null) {
+            // create new habit
+            axios.post('http://127.0.0.1:8000/api/habits', data, config)
+                .then(response => {
+                    console.log("POSTed");
+                    console.log(response.data);
+                    
+                    setHabits([
+                        ...habits,
+                        response.data
+                    ]);
 
-        axios.post('http://127.0.0.1:8000/api/habits', data, config)
-            .then(response => {
-                console.log("POSTed");
-                console.log(response.data);
-                
-                setHabits([
-                    ...habits,
-                    { 
-                        id: response.data.id, 
-                        name: data.name, 
-                        category_id: data.category_id, 
-                        measurable: data.measurable, 
-                        goal: data.goal,
-                        progress: {
-                            0: {
-                                'done': 0,
-                                'progress': 0
-                            }
+                    setEditedHabit(null);
+                    setAddEditHabitModalOpened(false);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        } else {
+            // update existing
+            axios.put('http://127.0.0.1:8000/api/habits/' + editedHabit.id, data, config)
+                .then(response => {
+                    console.log("PUT, habit ID: " + editedHabit.id);
+                    console.log(response.data);
+                    
+                    let respHabit = response.data;
+                    const nextHabits = habits.map((h, i) => {
+                        if (h.id === respHabit.id) {
+                            return respHabit;
                         } 
-                    }
-                ]);
+            
+                        return h;
+                    });
+            
+                    setHabits(nextHabits);
 
-                setAddHabitModalOpened(false);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+                    setEditedHabit(null);
+                    setAddEditHabitModalOpened(false);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
     
     }
 
-    function onHabitDelete(habitId: number){
+    function startEditHabit(habit: Habit){
+        setAddEditHabitModalOpened(true);
+        setEditedHabit(habit);
+    }
+
+    function deleteHabit(habitId: number){
         console.log("deleting habit ID: " + habitId);
 
         axios.delete('http://127.0.0.1:8000/api/habits/' + habitId, config)
@@ -116,7 +137,7 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
             });
     }
 
-    function onMarkHabitCompleted(habit: Habit, date: string){
+    function markHabitCompleted(habit: Habit, date: string){
 
         let isChecked = habit.progress[0].done;
         isChecked = ! isChecked;
@@ -150,7 +171,7 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
             });
     }
 
-    function onChangeHabitProgress(habit: Habit, date: string, progress: number){
+    function changeHabitProgress(habit: Habit, date: string, progress: number){
 
         console.log("changing progress of habit ID: " + habit.id+ " to "+progress);
 
@@ -189,23 +210,25 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
                     <Habit
                         key={habit.id}
                         habit={habit}
-                        onDelete={() => onHabitDelete(habit.id)}
-                        onMarkCompleted={(date: string) => onMarkHabitCompleted(habit, date)}
-                        onChangeProgress={(date: string, progress: number) => onChangeHabitProgress(habit, date, progress)}
+                        onDelete={() => deleteHabit(habit.id)}
+                        onMarkCompleted={(date: string) => markHabitCompleted(habit, date)}
+                        onChangeProgress={(date: string, progress: number) => changeHabitProgress(habit, date, progress)}
+                        onEditStart={(habit: Habit) => startEditHabit(habit)}
                     /> 
                 ))}
                 </IonList>
             </IonContent>
-            <AddHabit 
-                isOpen={addHabitModalOpened} 
+            <AddEditHabit 
+                isOpen={addEditHabitModalOpened}  
+                habit={editedHabit}
                 habitCategories={habitCategories} 
-                onClose={() => setAddHabitModalOpened(false)} 
-                onSubmit={(data) => onAddHabitSubmit(data)} 
+                onClose={() => {setEditedHabit(null); setAddEditHabitModalOpened(false);}} 
+                onSubmit={(data) => onAddEditHabitSubmit(data)} 
             />
             <IonButton 
                 shape="round" 
                 className="addHabit" 
-                onClick={() => setAddHabitModalOpened(true)}
+                onClick={() => {setEditedHabit(null); setAddEditHabitModalOpened(true);}}
             >+</IonButton>
         </>
     );
