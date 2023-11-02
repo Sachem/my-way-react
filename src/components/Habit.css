@@ -1,10 +1,23 @@
 ion-checkbox {
-    --size: 24px;
-    --checkbox-background-checked: rgb(56, 128, 255);
-    margin-right: 10px;
-  }
-  
-  ion-checkbox::part(container) {
-    border-radius: 6px;
-    border: 2px solid rgb(56, 128, 255);
-  }
+  --size: 24px;
+  --checkbox-background-checked: rgb(56, 128, 255);
+  margin-right: 10px;
+}
+
+ion-checkbox::part(container) {
+  border-radius: 6px;
+  border: 2px solid rgb(56, 128, 255);
+}
+
+ion-col:not(:first-child){
+  text-align: center;
+}
+
+ion-col span{
+  color: #999;
+  font-size: 12px;
+}
+
+ion-row {
+  height: 50px;
+}

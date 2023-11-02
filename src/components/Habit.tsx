@@ -2,14 +2,28 @@ import './Habit.css';
 
 import { 
     IonAlert,
-    IonButton, IonCheckbox, IonIcon, IonItem, IonLabel 
+    IonButton, IonCheckbox, IonCol, IonIcon, IonItem, IonLabel, IonRow 
 } from '@ionic/react';
 
-import { addCircleOutline, createOutline, trashOutline } from 'ionicons/icons';
+import { addCircleOutline, createOutline, trashOutline , checkmark, close} from 'ionicons/icons';
 
 
-export default function Habit({ habit, onDelete, onMarkCompleted, onChangeProgress, onEditStart }) {
+function HabitProgressMultipleDayView({habit, day}){
 
+    if (habit.measurable == 1){
+        return day.progress;
+    } else {
+        if (day.done == 1) {
+            return (<IonIcon icon={checkmark}></IonIcon>);
+        } else {
+            return (<IonIcon icon={close}></IonIcon>);
+        }
+    }
+}
+
+export default function Habit({ habit, appView, onDelete, onMarkCompleted, onChangeProgress, onEditStart }) {
+
+if (appView == 'home') {
     return (
         <IonItem>
             <IonCheckbox 
@@ -95,5 +109,32 @@ export default function Habit({ habit, onDelete, onMarkCompleted, onChangeProgre
         </IonItem>
 
     );
-}
+} else {
+    return (
+        <IonRow>
+            
+            <IonCol size="2" key="name">
+                {habit.name}
+                {
+                    habit.measurable == 1 &&
+                    <>
+                        <br />
+                        <span>Goal: {habit.goal}</span>
+                    </>
+                }
+            </IonCol>
 
+            {
+                habit.progress.map((day, index) => (
+                    <IonCol key={index}>
+                        <HabitProgressMultipleDayView habit={habit} day={day} />
+                    
+                    </IonCol>
+                ))
+                
+            }
+        </IonRow>
+
+    );    
+}
+}

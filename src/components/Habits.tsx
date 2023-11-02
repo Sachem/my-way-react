@@ -6,12 +6,8 @@ import AddEditHabit from '../components/AddEditHabit';
 import Habit from '../components/Habit';
 
 
-import { IonContent, IonItem, IonLabel, IonList, IonButton, IonIcon, IonAlert } from '@ionic/react';
+import { IonContent, IonList, IonButton, IonGrid, IonRow, IonCol } from '@ionic/react';
 
-
-interface ContainerProps {
-    name: string;
-}
 
 interface Habit {
     id: number;
@@ -24,10 +20,12 @@ interface Habit {
 
 interface ProgressDate {
     date: string;
+    dayOfWeek: string;
+    dayInMonth: number;
 }
  
 
-const Habits: React.FC<ContainerProps> = ({ name }) => {
+export default function Habits({ appView }) {
 
     const [habits, setHabits] = useState<Habit[]>([]);
     const [dates, setDates] = useState<ProgressDate[]>([]);
@@ -36,6 +34,8 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
     const [editedHabit, setEditedHabit] = useState<null | Habit>(null);
 
     const token = '6|ITI2rMrjW04dgvoRT0SvKeIorEOIvt4np9vuHoUU08c30be0'; // TODO: remove hardcoded, when auth done
+
+    console.log("appView: " + appView);
 
     let config = { // TODO: move to some shared config 
         headers: {
@@ -145,7 +145,7 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
         console.log("marking habit ID: " + habit.id+ " as "+(isChecked ? '' : 'not ')+"completed");
 
         const data = {
-            'date': dates[0],
+            'date': dates[0].date,
             'done': isChecked
         };
         
@@ -176,7 +176,7 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
         console.log("changing progress of habit ID: " + habit.id+ " to "+progress);
 
         const data = {
-            'date': dates[0],
+            'date': dates[0].date,
             'progress': progress
         };
         
@@ -201,22 +201,50 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
                 console.error(error);
             });
     }
-    
+
     return (
         <>
             <IonContent color="light">
-                <IonList inset={true}>
-                {habits.map(habit => (
-                    <Habit
-                        key={habit.id}
-                        habit={habit}
-                        onDelete={() => deleteHabit(habit.id)}
-                        onMarkCompleted={(date: string) => markHabitCompleted(habit, date)}
-                        onChangeProgress={(date: string, progress: number) => changeHabitProgress(habit, date, progress)}
-                        onEditStart={(habit: Habit) => startEditHabit(habit)}
-                    /> 
-                ))}
-                </IonList>
+                {
+                    appView == 'home' &&
+                    <IonList inset={true}>
+                    {habits.map(habit => (
+                        <Habit
+                            key={habit.id}
+                            habit={habit}
+                            appView={appView}
+                            onDelete={() => deleteHabit(habit.id)}
+                            onMarkCompleted={(date: string) => markHabitCompleted(habit, date)}
+                            onChangeProgress={(date: string, progress: number) => changeHabitProgress(habit, date, progress)}
+                            onEditStart={(habit: Habit) => startEditHabit(habit)}
+                        /> 
+                    ))}
+                    </IonList>
+                }
+                {
+                    appView != 'home' &&
+                    <IonGrid>
+                        <IonRow>
+                            <IonCol size="2" key="name">
+
+                            </IonCol>
+                            {dates.map((date, index) => (
+                                <IonCol key={index}>{date.dayOfWeek}<br /><span>{date.dayInMonth}</span></IonCol> 
+                            ))}
+                        </IonRow>
+                        {habits.map(habit => (
+                        <Habit
+                            key={habit.id}
+                            habit={habit}
+                            appView={appView}
+                            onDelete={() => deleteHabit(habit.id)}
+                            onMarkCompleted={(date: string) => markHabitCompleted(habit, date)}
+                            onChangeProgress={(date: string, progress: number) => changeHabitProgress(habit, date, progress)}
+                            onEditStart={(habit: Habit) => startEditHabit(habit)}
+                        /> 
+                    ))}
+                    </IonGrid>
+                }              
             </IonContent>
             <AddEditHabit 
                 isOpen={addEditHabitModalOpened}  
@@ -233,5 +261,3 @@ const Habits: React.FC<ContainerProps> = ({ name }) => {
         </>
     );
 }
-
-export default Habits;
