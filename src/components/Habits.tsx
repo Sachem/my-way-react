@@ -137,18 +137,19 @@ export default function Habits({ appView }) {
             });
     }
 
-    function markHabitCompleted(habit: Habit, date: string){
+    function markHabitCompleted(habit: Habit, dateIndex: number){
 
-        let isChecked = habit.progress[0].done;
+        let isChecked = habit.progress[dateIndex].done;
         isChecked = ! isChecked;
 
-        console.log("marking habit ID: " + habit.id+ " as "+(isChecked ? '' : 'not ')+"completed");
 
         const data = {
-            'date': dates[0].date,
+            'date': dates[dateIndex].date,
             'done': isChecked
         };
-        
+
+        console.log("marking habit ID: " + habit.id+ " as "+(isChecked ? '' : 'not ')+"completed at: " + data.date + "(dateIndex: "+dateIndex+")");
+
         axios.post('http://127.0.0.1:8000/api/habit/mark-completed/' + habit.id, data, config)
             .then(response => {
                 console.log("request successful, response: "+response.data);
@@ -156,7 +157,7 @@ export default function Habits({ appView }) {
                 let respHabit = response.data;
                 const nextHabits = habits.map((h, i) => {
                     if (h.id === respHabit.id) {
-                        respHabit.progress[0].done = isChecked;
+                        respHabit.progress[dateIndex].done = isChecked;
                         return respHabit;
                     } 
         
@@ -171,14 +172,16 @@ export default function Habits({ appView }) {
             });
     }
 
-    function changeHabitProgress(habit: Habit, date: string, progress: number){
+    function changeHabitProgress(habit: Habit, dateIndex: number, progress: number){
 
-        console.log("changing progress of habit ID: " + habit.id+ " to "+progress);
+        console.log("changing progress of habit ID: " + habit.id+ " to "+progress +" at dateIndex: "+dateIndex);
 
         const data = {
-            'date': dates[0].date,
+            'date': dates[dateIndex].date,
             'progress': progress
         };
+
+        console.log("changing progress of habit ID: " + habit.id+ " to "+progress +" at: " + data.date + "(dateIndex: "+dateIndex+")");
         
         axios.post('http://127.0.0.1:8000/api/habit/change-progress/' + habit.id, data, config)
             .then(response => {
@@ -187,7 +190,7 @@ export default function Habits({ appView }) {
                 let respHabit = response.data;
                 const nextHabits = habits.map((h, i) => {
                     if (h.id === respHabit.id) {
-                        respHabit.progress[0].progress = progress;
+                        respHabit.progress[dateIndex].progress = progress;
                         return respHabit;
                     } 
         
@@ -205,29 +208,25 @@ export default function Habits({ appView }) {
     return (
         <>
             <IonContent color="light">
-                {
-                    appView == 'home' &&
+            {
+                appView == 'home' ? (
                     <IonList inset={true}>
-                    {habits.map(habit => (
-                        <Habit
-                            key={habit.id}
-                            habit={habit}
-                            appView={appView}
-                            onDelete={() => deleteHabit(habit.id)}
-                            onMarkCompleted={(date: string) => markHabitCompleted(habit, date)}
-                            onChangeProgress={(date: string, progress: number) => changeHabitProgress(habit, date, progress)}
-                            onEditStart={(habit: Habit) => startEditHabit(habit)}
-                        /> 
-                    ))}
+                        {habits.map(habit => (
+                            <Habit
+                                key={habit.id}
+                                habit={habit}
+                                appView={appView}
+                                onDelete={() => deleteHabit(habit.id)}
+                                onMarkCompleted={(dateIndex: number) => markHabitCompleted(habit, 0)}
+                                onChangeProgress={(dateIndex: number, progress: number) => changeHabitProgress(habit, 0, progress)}
+                                onEditStart={(habit: Habit) => startEditHabit(habit)}
+                            /> 
+                        ))}
                     </IonList>
-                }
-                {
-                    appView != 'home' &&
+                ) : (
                     <IonGrid>
                         <IonRow>
-                            <IonCol size="2" key="name">
-
-                            </IonCol>
+                            <IonCol size="2" key="name"></IonCol>
                             {dates.map((date, index) => (
                                 <IonCol key={index}>{date.dayOfWeek}<br /><span>{date.dayInMonth}</span></IonCol> 
                             ))}
@@ -238,13 +237,14 @@ export default function Habits({ appView }) {
                             habit={habit}
                             appView={appView}
                             onDelete={() => deleteHabit(habit.id)}
-                            onMarkCompleted={(date: string) => markHabitCompleted(habit, date)}
-                            onChangeProgress={(date: string, progress: number) => changeHabitProgress(habit, date, progress)}
+                            onMarkCompleted={(dateIndex: number) => markHabitCompleted(habit, dateIndex)}
+                            onChangeProgress={(dateIndex: number, progress: number) => changeHabitProgress(habit, dateIndex, progress)}
                             onEditStart={(habit: Habit) => startEditHabit(habit)}
                         /> 
                     ))}
                     </IonGrid>
-                }              
+                )
+            }           
             </IonContent>
             <AddEditHabit 
                 isOpen={addEditHabitModalOpened}  

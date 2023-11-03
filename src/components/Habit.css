@@ -21,3 +21,13 @@ ion-col span{
 ion-row {
   height: 50px;
 }
+
+ion-row button{
+  display: flex;
+  align-items: top;
+  justify-content: top;
+}
+
+ion-row ion-icon{
+  cursor: pointer;
+}

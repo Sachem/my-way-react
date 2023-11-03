@@ -8,15 +8,61 @@ import {
 import { addCircleOutline, createOutline, trashOutline , checkmark, close} from 'ionicons/icons';
 
 
-function HabitProgressMultipleDayView({habit, day}){
+function HabitProgressMultipleDayView({habit, day, index, onMarkCompleted, onChangeProgress}){
 
     if (habit.measurable == 1){
-        return day.progress;
+        return (
+            <>
+            <IonButton 
+                fill="clear"
+                size='small'
+                id={"update-progress-habit-"+habit.id+"-day-"+index}
+            >
+                {day.progress}
+            </IonButton>
+            <IonAlert
+                trigger={"update-progress-habit-"+habit.id+"-day-"+index}
+                header="Update progress"
+                buttons={[
+                    {
+                        text: 'Cancel',
+                        role: 'cancel',
+                    },
+                    {
+                        text: 'OK',
+                        role: 'confirm',
+                        handler: (alertData) => {
+                            onChangeProgress(alertData.progress);
+                        },
+                    }
+                ]}
+                inputs={[
+                {
+                    name: 'progress',
+                    type: 'number',
+                    placeholder: 'Progress',
+                    min: 0,
+                    value: habit.progress[index].progress
+                },
+                ]}
+            ></IonAlert>
+            </>
+        );
     } else {
         if (day.done == 1) {
-            return (<IonIcon icon={checkmark}></IonIcon>);
+            return (
+                <IonIcon 
+                    onClick={() => onMarkCompleted()}
+                    icon={checkmark}
+                ></IonIcon>
+            );
         } else {
-            return (<IonIcon icon={close}></IonIcon>);
+            return (
+                <IonIcon 
+                    onClick={() => onMarkCompleted()}
+                    icon={close}
+                ></IonIcon>
+            );
         }
     }
 }
@@ -29,7 +75,7 @@ if (appView == 'home') {
             <IonCheckbox 
                 disabled={habit.measurable} 
                 checked={habit.progress[0].done}
-                onClick={() => onMarkCompleted(habit.id, 0)}
+                onClick={() => onMarkCompleted(0)}
             ></IonCheckbox>
             <IonLabel>{habit.name}</IonLabel>
             {
@@ -52,7 +98,7 @@ if (appView == 'home') {
                             {
                                 text: 'OK',
                                 role: 'confirm',
-                                handler: (alertData) => { //takes the data 
+                                handler: (alertData) => {
                                     onChangeProgress(0, alertData.progress);
                                 },
                             }
@@ -127,8 +173,13 @@ if (appView == 'home') {
             {
                 habit.progress.map((day, index) => (
                     <IonCol key={index}>
-                        <HabitProgressMultipleDayView habit={habit} day={day} />
-                    
+                        <HabitProgressMultipleDayView 
+                            habit={habit} 
+                            day={day} 
+                            index={index} 
+                            onMarkCompleted={() => onMarkCompleted(index)} 
+                            onChangeProgress={(progress) => onChangeProgress(index, progress)} 
+                        />
                     </IonCol>
                 ))
                 
