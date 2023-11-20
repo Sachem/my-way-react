@@ -25,7 +25,7 @@ interface ProgressDate {
 }
  
 
-export default function Habits({ appView }) {
+export default function Habits(props) {
 
     const [habits, setHabits] = useState<Habit[]>([]);
     const [dates, setDates] = useState<ProgressDate[]>([]);
@@ -33,18 +33,17 @@ export default function Habits({ appView }) {
     const [addEditHabitModalOpened, setAddEditHabitModalOpened] = useState(false);
     const [editedHabit, setEditedHabit] = useState<null | Habit>(null);
 
-    const token = '6|ITI2rMrjW04dgvoRT0SvKeIorEOIvt4np9vuHoUU08c30be0'; // TODO: remove hardcoded, when auth done
-
-    console.log("appView: " + appView);
+    console.log("appView: " + props.appView);
+    console.log("Habits.props.accessToken: " + props.accessToken);
 
     let config = { // TODO: move to some shared config 
         headers: {
-          'Authorization': 'Bearer ' + token
+          'Authorization': 'Bearer ' + props.accessToken
         }
     }
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/habits', config) // TODO: read API endpoint from some shared config
+        axios.get('/api/habits', config) // TODO: read API endpoint from some shared config
         .then(response => {
             setHabits(response.data.data);
             setDates(response.data.meta.dates);
@@ -55,7 +54,7 @@ export default function Habits({ appView }) {
     }, []);
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/habit/categories', config)
+        axios.get('/api/habit/categories', config)
         .then(response => {
             setHabitCategories(response.data);
         })
@@ -71,7 +70,7 @@ export default function Habits({ appView }) {
         
         if (editedHabit == null) {
             // create new habit
-            axios.post('http://127.0.0.1:8000/api/habits', data, config)
+            axios.post('/api/habits', data, config)
                 .then(response => {
                     console.log("POSTed");
                     console.log(response.data);
@@ -89,7 +88,7 @@ export default function Habits({ appView }) {
                 });
         } else {
             // update existing
-            axios.put('http://127.0.0.1:8000/api/habits/' + editedHabit.id, data, config)
+            axios.put('/api/habits/' + editedHabit.id, data, config)
                 .then(response => {
                     console.log("PUT, habit ID: " + editedHabit.id);
                     console.log(response.data);
@@ -123,7 +122,7 @@ export default function Habits({ appView }) {
     function deleteHabit(habitId: number){
         console.log("deleting habit ID: " + habitId);
 
-        axios.delete('http://127.0.0.1:8000/api/habits/' + habitId, config)
+        axios.delete('/api/habits/' + habitId, config)
             .then(response => {
                 console.log("DELETED");
                 console.log(response.data);
@@ -150,7 +149,7 @@ export default function Habits({ appView }) {
 
         console.log("marking habit ID: " + habit.id+ " as "+(isChecked ? '' : 'not ')+"completed at: " + data.date + "(dateIndex: "+dateIndex+")");
 
-        axios.post('http://127.0.0.1:8000/api/habit/mark-completed/' + habit.id, data, config)
+        axios.post('/api/habit/mark-completed/' + habit.id, data, config)
             .then(response => {
                 console.log("request successful, response: "+response.data);
 
@@ -183,7 +182,7 @@ export default function Habits({ appView }) {
 
         console.log("changing progress of habit ID: " + habit.id+ " to "+progress +" at: " + data.date + "(dateIndex: "+dateIndex+")");
         
-        axios.post('http://127.0.0.1:8000/api/habit/change-progress/' + habit.id, data, config)
+        axios.post('/api/habit/change-progress/' + habit.id, data, config)
             .then(response => {
                 console.log("request successful, response: "+response.data);
 
@@ -209,13 +208,13 @@ export default function Habits({ appView }) {
         <>
             <IonContent color="light">
             {
-                appView == 'home' ? (
+                props.appView == 'home' ? (
                     <IonList inset={true}>
                         {habits.map(habit => (
                             <Habit
                                 key={habit.id}
                                 habit={habit}
-                                appView={appView}
+                                appView={props.appView}
                                 onDelete={() => deleteHabit(habit.id)}
                                 onMarkCompleted={(dateIndex: number) => markHabitCompleted(habit, 0)}
                                 onChangeProgress={(dateIndex: number, progress: number) => changeHabitProgress(habit, 0, progress)}
@@ -235,7 +234,7 @@ export default function Habits({ appView }) {
                         <Habit
                             key={habit.id}
                             habit={habit}
-                            appView={appView}
+                            appView={props.appView}
                             onDelete={() => deleteHabit(habit.id)}
                             onMarkCompleted={(dateIndex: number) => markHabitCompleted(habit, dateIndex)}
                             onChangeProgress={(dateIndex: number, progress: number) => changeHabitProgress(habit, dateIndex, progress)}

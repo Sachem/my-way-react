@@ -2,13 +2,16 @@ import { IonContent, IonFooter, IonHeader, IonIcon, IonPage, IonSegment, IonSegm
 import { home, listOutline } from 'ionicons/icons';
 import { useState } from 'react';
 
+import "@codetrix-studio/capacitor-google-auth";
+import { Plugins } from '@capacitor/core';
+
 import Habits from '../components/Habits';
 import './HabitsPage.css';
 
-export default function HabitsPage() {
+export default function HabitsPage(props) {
 
   const [appView, setAppView] = useState('home');
-
+console.log('HabitsPage.props.accessToken', props.accessToken);
   return (
     <IonPage>
       <IonHeader>
@@ -22,7 +25,7 @@ export default function HabitsPage() {
             <IonTitle size="large">Today</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <Habits appView={appView} />
+        <Habits appView={appView} accessToken={props.accessToken} />
       </IonContent>
       <IonFooter>
         <IonToolbar>

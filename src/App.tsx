@@ -4,6 +4,7 @@ import {
   IonRouterOutlet,
   setupIonicReact
 } from '@ionic/react';
+import axios from 'axios';
 
 import AuthPage from './pages/AuthPage';
 import HabitsPage from './pages/HabitsPage';
@@ -27,25 +28,70 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import { IonReactRouter } from '@ionic/react-router';
+import { useEffect, useState } from 'react';
 
 setupIonicReact();
 
-const App: React.FC = () => (
+export default function App() {
+  // sessionStorage.setItem('loggedIn', 'false');
+
+console.log('sessionStorage.loggedIn', sessionStorage.getItem('loggedIn'));
+console.log('sessionStorage.accessToken', sessionStorage.getItem('accessToken'));
+  const [name, setName] = useState('')
+  const [accessToken, setAccessToken] = useState(
+      sessionStorage.getItem('accessToken') || ''
+  );
+  const [loggedIn, setLoggedIn] = useState(
+      sessionStorage.getItem('loggedIn') || false
+  );
+  console.log('loggedIn', loggedIn);
+
+  const login = (result) => {
+
+      setLoggedIn(true);
+//      setName('test_name');
+      sessionStorage.setItem('loggedIn', 'true');
+
+      // axios.defaults.headers.common['Authorization'] = result.authentication.accessToken;
+      setAccessToken(result.authentication.accessToken);
+      console.log('result.authentication.accessToken', result.authentication.accessToken);
+      sessionStorage.setItem('accessToken', accessToken);
+
+
+  };
+  const logout = () => {
+      setLoggedIn(false);
+      sessionStorage.setItem('loggedIn', 'false');
+  };
+
+  return (
+
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
         <Route exact path="/habits">
-          <HabitsPage />
+          <HabitsPage accessToken={accessToken} />
         </Route>
-        <Route exact path="/auth">
-          <AuthPage />auth
+        <Route path="/auth">
+          { 
+            loggedIn == true
+            ? 
+            <Redirect to="/habits"/> 
+            : 
+            <AuthPage loggedIn={loggedIn} login={login} /> 
+          } 
         </Route>
         <Route exact path="/">
-          <Redirect to="/auth" />
+          { 
+            loggedIn == true 
+            ? 
+            <Redirect to="/habits"/> 
+            : 
+            <Redirect to="/auth" /> 
+          } 
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
-);
-
-export default App;
+  );
+}
