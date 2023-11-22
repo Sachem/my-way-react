@@ -4,7 +4,9 @@ import {
   IonRouterOutlet,
   setupIonicReact
 } from '@ionic/react';
-import axios from 'axios';
+import { IonReactRouter } from '@ionic/react-router';
+import { useState } from 'react';
+
 
 import AuthPage from './pages/AuthPage';
 import HabitsPage from './pages/HabitsPage';
@@ -27,9 +29,8 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import { IonReactRouter } from '@ionic/react-router';
-import { useEffect, useState } from 'react';
-
+/* Tailwind styles */
+import './theme/tailwind.css';
 setupIonicReact();
 
 export default function App() {

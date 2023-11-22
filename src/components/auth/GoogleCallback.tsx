@@ -27,20 +27,10 @@ export default function GoogleCallback() {
     // Helper method to fetch User data for authenticated user
     // Watch out for "Authorization" header that is added to this call
     function fetchUserData() {
-        axios.get(`/api/user`, {
-
-            headers : {
-                'Content-Type': 'aRegistrationpplication/json',
-                'Accept': 'application/json',
-                'Authorization': 'Bearer ' + data.access_token,
-            }
-        })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                setUser(data);
-            });
+        axios.get(`/api/user`)
+        .then((response) => {
+            setUser(response.data);
+        });
     }
 
     if (loading) {

@@ -1,0 +1,19 @@
+version: "3"
+networks:
+  default:
+    external:
+      name: nginx-proxy
+services:
+    my-way:
+        environment:
+            VIRTUAL_HOST: myway.01solutions.co.uk
+            LETSENCRYPT_HOST: myway.01solutions.co.uk
+            LETSENCRYPT_EMAIL: hello@01solutions.co.uk
+        image: nginx
+        ports:
+            - 3031:80
+            - 1444:443
+        volumes:
+            - ./dist:/usr/share/nginx/html
+        networks:
+            - default
