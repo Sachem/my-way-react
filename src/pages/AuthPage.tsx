@@ -27,6 +27,9 @@ export default function AuthPage(props: { login: (arg0: User) => void; loggedIn:
   };
   console.log('AuthPage.loggedIn', props.loggedIn);
 
+  const googleLogin = (data) => {
+    props.googleLogin(data);
+  };
 
     useEffect(() => {
         GoogleAuth.initialize({

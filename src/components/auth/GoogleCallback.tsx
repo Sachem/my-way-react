@@ -21,10 +21,11 @@ export default function GoogleCallback(props: {googleLogin}) {
             // }
         })
         .then((response) => {
+            console.log('response', response);
             setLoading(false);
             setData(response.data);
 
-            props.googleLogin(response);
+            props.googleLogin(response.data);
         });
     }, []);
 
