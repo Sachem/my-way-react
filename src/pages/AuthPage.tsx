@@ -13,7 +13,7 @@ import Registration from '../components/auth/Registration';
 import GoogleSignIn from '../components/auth/GoogleSignIn';
 import GoogleCallback from '../components/auth/GoogleCallback';
 
-export default function AuthPage(props: { login: (arg0: User) => void; loggedIn: boolean; }) {
+export default function AuthPage(props: { login: (arg0: User) => void; loggedIn: boolean; googleLogin; }) {
 
   const signIn = async function () {
     const result = await GoogleAuth.signIn();
@@ -51,7 +51,10 @@ export default function AuthPage(props: { login: (arg0: User) => void; loggedIn:
             </Route>
             <Route path='/auth/registration'>
               <Registration login={props.login} />
-            </Route>   
+            </Route>
+            <Route path="/auth/google-callback">
+              <GoogleCallback googleLogin={googleLogin} />
+            </Route>     
             {/* 
             TODO: THIS IS THE ONE WORKING WITH CAPACITOR PLUGIN, 
             TODO: WORK ON IT NEXT

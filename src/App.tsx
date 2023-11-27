@@ -49,7 +49,6 @@ console.log('sessionStorage.accessToken', sessionStorage.getItem('accessToken'))
   console.log('loggedIn', loggedIn);
 
   const login = (result) => {
-
       setLoggedIn(true);
 //      setName('test_name');
       sessionStorage.setItem('loggedIn', 'true');
@@ -58,12 +57,20 @@ console.log('sessionStorage.accessToken', sessionStorage.getItem('accessToken'))
       setAccessToken(result.authentication.accessToken);
       console.log('result.authentication.accessToken', result.authentication.accessToken);
       sessionStorage.setItem('accessToken', accessToken);
-
-
   };
+
   const logout = () => {
       setLoggedIn(false);
       sessionStorage.setItem('loggedIn', 'false');
+  };
+
+  const googleLogin = (result) => {
+    setLoggedIn(true);
+    sessionStorage.setItem('loggedIn', 'true');
+
+    setAccessToken(result.access_token);
+    console.log('result.access_token', result.access_token);
+    sessionStorage.setItem('accessToken', result.access_token);
   };
 
   return (
@@ -80,7 +87,7 @@ console.log('sessionStorage.accessToken', sessionStorage.getItem('accessToken'))
             ? 
             <Redirect to="/habits"/> 
             : 
-            <AuthPage loggedIn={loggedIn} login={login} /> 
+            <AuthPage loggedIn={loggedIn} login={login} googleLogin={googleLogin} /> 
           } 
         </Route>
         <Route exact path="/">
@@ -93,7 +100,7 @@ console.log('sessionStorage.accessToken', sessionStorage.getItem('accessToken'))
           } 
         </Route>
         <Route path="/google">
-          <GoogleCallback />
+          <GoogleCallback googleLogin={googleLogin} />
         </Route>  
       </IonRouterOutlet>
     </IonReactRouter>
