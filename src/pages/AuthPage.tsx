@@ -13,7 +13,7 @@ import Registration from '../components/auth/Registration';
 import GoogleSignIn from '../components/auth/GoogleSignIn';
 import GoogleCallback from '../components/auth/GoogleCallback';
 
-export default function AuthPage(props: { login: (arg0: User) => void; loggedIn: boolean; googleLogin; }) {
+export default function AuthPage(props) {
 
   const signIn = async function () {
     const result = await GoogleAuth.signIn();
@@ -25,11 +25,7 @@ export default function AuthPage(props: { login: (arg0: User) => void; loggedIn:
       props.login(result);
     }
   };
-  console.log('AuthPage.loggedIn', props.loggedIn);
 
-  const googleLogin = (data) => {
-    props.googleLogin(data);
-  };
 
     useEffect(() => {
         GoogleAuth.initialize({
@@ -47,7 +43,6 @@ export default function AuthPage(props: { login: (arg0: User) => void; loggedIn:
             </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">
-            <h1>{props.loggedIn == true ? 'logged in' : 'not logged in'}</h1>
             <Route exact path='/auth'>
                 <GoogleSignIn />
                 <Login login={props.login} />
@@ -56,7 +51,7 @@ export default function AuthPage(props: { login: (arg0: User) => void; loggedIn:
               <Registration login={props.login} />
             </Route>
             <Route path="/auth/google-callback">
-              <GoogleCallback googleLogin={googleLogin} />
+              <GoogleCallback googleLogin={props.googleLogin} />
             </Route>     
             {/* 
             TODO: THIS IS THE ONE WORKING WITH CAPACITOR PLUGIN, 

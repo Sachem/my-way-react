@@ -14,14 +14,8 @@ export default function GoogleCallback(props: {googleLogin}) {
     // On page load, we take "search" parameters 
     // and proxy them to /api/auth/callback on our Laravel API
     useEffect(() => {
-        axios.get(`/api/auth/socialite/google/callback${location.search}`, {
-            // headers : {
-            //     'Content-Type': 'application/json',
-            //     'Accept': 'application/json'
-            // }
-        })
+        axios.get(`/api/auth/socialite/google/callback${location.search}`)
         .then((response) => {
-            console.log('response', response);
             setLoading(false);
             setData(response.data);
 
@@ -29,47 +23,10 @@ export default function GoogleCallback(props: {googleLogin}) {
         });
     }, []);
 
-    // Helper method to fetch User data for authenticated user
-    // Watch out for "Authorization" header that is added to this call
-    function fetchUserData() {
-        axios.get(`/api/user`, {
-           // 'Authorization': 'Bearer ' + data.access_token,
-        })
-        .then((response) => {
-            setUser(response.data);
-        });
-    }
-
     if (loading) {
-        return <DisplayLoading/>
+        return <div>Loading....</div>
     } 
     else {
         return <div></div>
     }
-    // else {
-    //     if (user != null) {
-    //         return <DisplayData data={user}/>
-    //     } else {
-    //         return (
-    //             <div>
-    //                 <DisplayData data={data}/>
-    //                 <div style={{marginTop:10}}>
-    //                     <button onClick={fetchUserData}>Fetch User</button>
-    //                 </div>
-    //             </div>
-    //         );
-    //     }
-    // }
-}
-
-function DisplayLoading() {
-    return <div>Loading....</div>;
-}
-
-function DisplayData(data: any) {
-    return (
-        <div>
-            <samp>{JSON.stringify(data, null, 2)}</samp>
-        </div>
-    );
 }

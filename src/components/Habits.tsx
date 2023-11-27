@@ -204,10 +204,15 @@ export default function Habits(props) {
             });
     }
 
+    console.log(habits);
+
     return (
         <>
             <IonContent color="light">
             {
+                habits.length > 0
+                ?
+                (
                 props.appView == 'home' ? (
                     <IonList inset={true}>
                         {habits.map(habit => (
@@ -243,6 +248,11 @@ export default function Habits(props) {
                     ))}
                     </IonGrid>
                 )
+                )
+                :
+                <div style={{padding:'20px'}}>
+                    You have no habits, <a style={{cursor:'pointer'}} onClick={() => {setEditedHabit(null); setAddEditHabitModalOpened(true);}}>add one</a> now.
+                </div>
             }           
             </IonContent>
             <AddEditHabit 

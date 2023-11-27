@@ -1,5 +1,5 @@
-import { IonContent, IonFooter, IonHeader, IonIcon, IonPage, IonSegment, IonSegmentButton, IonTitle, IonToolbar } from '@ionic/react';
-import { home, listOutline } from 'ionicons/icons';
+import { IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonIcon, IonPage, IonSegment, IonSegmentButton, IonTitle, IonToolbar } from '@ionic/react';
+import { home, listOutline, logOutOutline } from 'ionicons/icons';
 import { useState } from 'react';
 
 import "@codetrix-studio/capacitor-google-auth";
@@ -17,12 +17,20 @@ console.log('HabitsPage.props.accessToken', props.accessToken);
       <IonHeader>
         <IonToolbar>
           <IonTitle>{appView == 'home' ? 'Today' : 'Recent days'}</IonTitle>
+          <IonButtons slot="end">
+            <IonButton onClick={() => props.logout()}>              
+              <IonIcon icon={logOutOutline}></IonIcon>
+            </IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Today</IonTitle>
+            <IonButtons slot="end">
+              <IonButton>Logout</IonButton>
+            </IonButtons>
           </IonToolbar>
         </IonHeader>
         <Habits appView={appView} accessToken={props.accessToken} />
