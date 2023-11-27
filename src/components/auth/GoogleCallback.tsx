@@ -9,6 +9,8 @@ export default function GoogleCallback() {
     const [user, setUser] = useState(null);
     const location = useLocation();
 
+    console.log('here!');
+
     // On page load, we take "search" parameters 
     // and proxy them to /api/auth/callback on our Laravel API
     useEffect(() => {

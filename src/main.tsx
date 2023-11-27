@@ -3,11 +3,12 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import axios from 'axios';
 
-// axios.defaults.baseURL = 'https://myway-api.01solutions.co.uk';
-axios.defaults.baseURL = 'http://127.0.0.1';
+axios.defaults.baseURL = 'https://myway-api.01solutions.co.uk';
+// axios.defaults.baseURL = 'http://127.0.0.1';
 
 //axios.defaults.headers.common['Authorization'] = 'AUTH TOKEN';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use(request => {
     console.log(request);

@@ -31,6 +31,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 /* Tailwind styles */
 import './theme/tailwind.css';
+import GoogleCallback from './components/auth/GoogleCallback';
 setupIonicReact();
 
 export default function App() {
@@ -91,6 +92,9 @@ console.log('sessionStorage.accessToken', sessionStorage.getItem('accessToken'))
             <Redirect to="/auth" /> 
           } 
         </Route>
+        <Route path="/google">
+          <GoogleCallback />
+        </Route>  
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

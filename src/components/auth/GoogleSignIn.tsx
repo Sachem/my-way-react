@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import { IonRow, IonCol, IonGrid } from '@ionic/react';
+import GoogleButton from 'react-google-button';
 
 export default function GoogleSignIn() {
 
@@ -14,10 +16,17 @@ export default function GoogleSignIn() {
     }, []);
 
     return (
-        <div>
-            {loginUrl != null && (
-                <a href={loginUrl}>Socialite Google Sign In</a>
-            )}
-        </div>
+        <IonGrid> 
+            <IonRow justify-content-center> 
+                <IonCol align-self-center size-md="6" size-lg="5" size-xs="12">
+                    {
+                    loginUrl != null && 
+                        <a href={loginUrl}>
+                            <GoogleButton type="light" />
+                        </a>
+                    }
+                </IonCol>
+            </IonRow>
+        </IonGrid>
     );
 }

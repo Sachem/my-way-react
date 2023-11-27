@@ -1,4 +1,4 @@
-import { IonButton, IonCol, IonContent, IonFooter, IonHeader, IonIcon, IonImg, IonPage, IonRow, IonText, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonCol, IonContent, IonFooter, IonGrid, IonHeader, IonIcon, IonImg, IonPage, IonRow, IonText, IonTitle, IonToolbar } from '@ionic/react';
 import { useEffect, useState } from 'react';
 
 import "@codetrix-studio/capacitor-google-auth";
@@ -46,15 +46,12 @@ export default function AuthPage(props: { login: (arg0: User) => void; loggedIn:
         <IonContent className="ion-padding">
             <h1>{props.loggedIn == true ? 'logged in' : 'not logged in'}</h1>
             <Route exact path='/auth'>
-              <Login login={props.login} />
-              <GoogleSignIn />
+                <GoogleSignIn />
+                <Login login={props.login} />
             </Route>
             <Route path='/auth/registration'>
               <Registration login={props.login} />
-            </Route>
-            <Route path="/google">
-              <GoogleCallback />
-            </Route>     
+            </Route>   
             {/* 
             TODO: THIS IS THE ONE WORKING WITH CAPACITOR PLUGIN, 
             TODO: WORK ON IT NEXT
