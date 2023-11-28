@@ -7,6 +7,7 @@ import Habit from '../components/Habit';
 
 
 import { IonContent, IonList, IonButton, IonGrid, IonRow, IonCol } from '@ionic/react';
+import HabitCalendar from './HabitCalendar';
 
 
 interface Habit {
@@ -32,6 +33,8 @@ export default function Habits(props) {
     const [habitCategories, setHabitCategories] = useState([]);
     const [addEditHabitModalOpened, setAddEditHabitModalOpened] = useState(false);
     const [editedHabit, setEditedHabit] = useState<null | Habit>(null);
+    const [habitCalendarModalOpened, setHabitCalendarModalOpened] = useState(false);
+    const [calendarHabit, setCalendarHabit] = useState<null | Habit>(null);
 
     console.log("appView: " + props.appView);
     console.log("Habits.props.accessToken: " + props.accessToken);
@@ -204,6 +207,13 @@ export default function Habits(props) {
             });
     }
 
+    function openCalendar(habit: Habit)
+    {
+        console.log("opening calendar for habit: " + habit.name);
+        setHabitCalendarModalOpened(true);
+        setCalendarHabit(habit);
+    }
+
     console.log(habits);
 
     return (
@@ -224,6 +234,7 @@ export default function Habits(props) {
                                 onMarkCompleted={(dateIndex: number) => markHabitCompleted(habit, 0)}
                                 onChangeProgress={(dateIndex: number, progress: number) => changeHabitProgress(habit, 0, progress)}
                                 onEditStart={(habit: Habit) => startEditHabit(habit)}
+                                onCalendarOpen={(habit: Habit) => openCalendar(habit)}
                             /> 
                         ))}
                     </IonList>
@@ -261,6 +272,11 @@ export default function Habits(props) {
                 habitCategories={habitCategories} 
                 onClose={() => {setEditedHabit(null); setAddEditHabitModalOpened(false);}} 
                 onSubmit={(data) => onAddEditHabitSubmit(data)} 
+            />
+            <HabitCalendar 
+                isOpen={habitCalendarModalOpened}  
+                habit={calendarHabit}
+                onClose={() => {setCalendarHabit(null); setHabitCalendarModalOpened(false);}} 
             />
             <IonButton 
                 shape="round" 

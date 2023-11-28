@@ -5,7 +5,7 @@ import {
     IonButton, IonCheckbox, IonCol, IonIcon, IonItem, IonLabel, IonRow 
 } from '@ionic/react';
 
-import { addCircleOutline, createOutline, trashOutline , checkmark, close} from 'ionicons/icons';
+import { addCircleOutline, createOutline, trashOutline , checkmark, close, calendarOutline} from 'ionicons/icons';
 
 
 function HabitProgressMultipleDayView({habit, day, index, onMarkCompleted, onChangeProgress}){
@@ -67,7 +67,7 @@ function HabitProgressMultipleDayView({habit, day, index, onMarkCompleted, onCha
     }
 }
 
-export default function Habit({ habit, appView, onDelete, onMarkCompleted, onChangeProgress, onEditStart }) {
+export default function Habit({ habit, appView, onDelete, onMarkCompleted, onChangeProgress, onEditStart, onCalendarOpen }) {
 
 if (appView == 'home') {
     return (
@@ -118,6 +118,14 @@ if (appView == 'home') {
                     </IonLabel>
                 </>
             }
+            <IonButton 
+                onClick={() => onCalendarOpen(habit)}
+                fill="clear"
+                slot='end'
+                size='large'
+            >
+                <IonIcon icon={calendarOutline}></IonIcon>
+            </IonButton>
             <IonButton 
                 onClick={() => onEditStart(habit)}
                 fill="clear"

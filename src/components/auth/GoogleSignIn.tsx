@@ -17,12 +17,17 @@ export default function GoogleSignIn() {
 
     return (
         <IonGrid> 
-            <IonRow justify-content-center> 
-                <IonCol align-self-center size-md="6" size-lg="5" size-xs="12">
+            <IonRow> 
+                <IonCol size-md="6" size-lg="5" size-xs="12">
+                    <h4>Social Auth</h4>
+                </IonCol>
+            </IonRow>
+            <IonRow> 
+                <IonCol size-md="6" size-lg="5" size-xs="12">
                     {
                     loginUrl != null && 
                         <a href={loginUrl}>
-                            <GoogleButton type="light" />
+                            <GoogleButton type="dark" />
                         </a>
                     }
                 </IonCol>
