@@ -6,7 +6,7 @@ import AddEditHabit from '../components/AddEditHabit';
 import Habit from '../components/Habit';
 
 
-import { IonContent, IonList, IonButton, IonGrid, IonRow, IonCol } from '@ionic/react';
+import { IonContent, IonList, IonButton, IonGrid, IonRow, IonCol, IonItem } from '@ionic/react';
 import HabitCalendar from './HabitCalendar';
 
 
@@ -28,6 +28,7 @@ interface ProgressDate {
 
 export default function Habits(props) {
 
+    const [loadingHabits, setLoadingHabits] = useState(true);
     const [habits, setHabits] = useState<Habit[]>([]);
     const [dates, setDates] = useState<ProgressDate[]>([]);
     const [habitCategories, setHabitCategories] = useState([]);
@@ -50,6 +51,7 @@ export default function Habits(props) {
         .then(response => {
             setHabits(response.data.data);
             setDates(response.data.meta.dates);
+            setLoadingHabits(false);
         })
         .catch(error => {
             console.error(error);
@@ -220,11 +222,26 @@ export default function Habits(props) {
         <>
             <IonContent color="light">
             {
-                habits.length > 0
+            loadingHabits
+            ?
+            <IonList>
+                <IonItem>
+                    Loading...
+                </IonItem>
+            </IonList>
+            :
+            (
+                habits.length == 0
                 ?
+                <IonList>
+                    <IonItem>
+                        <p>No habits yet, <a style={{cursor:'pointer'}} onClick={() => {setEditedHabit(null); setAddEditHabitModalOpened(true);}}>add one</a> now.</p>
+                    </IonItem>
+                </IonList>
+                :
                 (
                 props.appView == 'home' ? (
-                    <IonList inset={true}>
+                    <IonList className="ion-no-padding">
                         {habits.map(habit => (
                             <Habit
                                 key={habit.id}
@@ -260,12 +277,10 @@ export default function Habits(props) {
                     </IonGrid>
                 )
                 )
-                :
-                <div style={{padding:'20px'}}>
-                    You have no habits, <a style={{cursor:'pointer'}} onClick={() => {setEditedHabit(null); setAddEditHabitModalOpened(true);}}>add one</a> now.
-                </div>
+            )
             }           
             </IonContent>
+            
             <AddEditHabit 
                 isOpen={addEditHabitModalOpened}  
                 habit={editedHabit}

@@ -2,10 +2,10 @@ import './Habit.css';
 
 import { 
     IonAlert,
-    IonButton, IonCheckbox, IonCol, IonIcon, IonItem, IonLabel, IonRow 
+    IonButton, IonButtons, IonCheckbox, IonCol, IonContent, IonIcon, IonItem, IonLabel, IonPopover, IonRow, IonSelect, IonSelectOption, useIonAlert 
 } from '@ionic/react';
 
-import { addCircleOutline, createOutline, trashOutline , checkmark, close, calendarOutline} from 'ionicons/icons';
+import { addCircleOutline, createOutline, trashOutline , checkmark, close, calendarOutline, ellipsisVerticalCircleOutline} from 'ionicons/icons';
 
 
 function HabitProgressMultipleDayView({habit, day, index, onMarkCompleted, onChangeProgress}){
@@ -69,6 +69,25 @@ function HabitProgressMultipleDayView({habit, day, index, onMarkCompleted, onCha
 
 export default function Habit({ habit, appView, onDelete, onMarkCompleted, onChangeProgress, onEditStart, onCalendarOpen }) {
 
+const [presentAlert] = useIonAlert();
+
+const deleteHabitAlertParams = {
+    header: 'Are you sure you want to delete this habit?',
+    buttons: [
+        {
+            text: 'No',
+            role: 'cancel',
+        },
+        {
+            text: 'Yes',
+            role: 'confirm',
+            handler: () => {
+                onDelete(habit.id);
+            },
+        },
+    ]
+};
+
 if (appView == 'home') {
     return (
         <IonItem>
@@ -77,16 +96,14 @@ if (appView == 'home') {
                 checked={habit.progress[0].done}
                 onClick={() => onMarkCompleted(0)}
             ></IonCheckbox>
-            <IonLabel>{habit.name}</IonLabel>
-            {
-                habit.measurable == 1 && <>
-                    
-                    <IonButton 
-                        fill="clear"
-                        id={"update-progress-habit-"+habit.id}
-                    >
-                        <IonIcon icon={addCircleOutline}></IonIcon>
-                    </IonButton>
+            <IonLabel>
+                {habit.name}
+                {
+                habit.measurable == 1 && <> 
+                    <br />
+                    <IonLabel id={"update-progress-habit-"+habit.id} className="smallGrey">
+                        Progress: { habit.progress[0].progress } / { habit.goal } 
+                    </IonLabel>
                     <IonAlert
                         trigger={"update-progress-habit-"+habit.id}
                         header="What is your progress today?"
@@ -113,53 +130,56 @@ if (appView == 'home') {
                         },
                         ]}
                     ></IonAlert>
-                    <IonLabel>
-                        Progress: { habit.progress[0].progress } / { habit.goal } 
-                    </IonLabel>
                 </>
-            }
-            <IonButton 
-                onClick={() => onCalendarOpen(habit)}
-                fill="clear"
-                slot='end'
-                size='large'
-            >
-                <IonIcon icon={calendarOutline}></IonIcon>
-            </IonButton>
-            <IonButton 
-                onClick={() => onEditStart(habit)}
-                fill="clear"
-                slot='end'
-                size='large'
-            >
-                <IonIcon icon={createOutline}></IonIcon>
-            </IonButton>
-            <IonButton 
-                id={"alert-delete-habit-" + habit.id} 
-                fill="clear"
-                slot='end'
-                size='large'
-            >
-                <IonIcon icon={trashOutline}></IonIcon>
-            </IonButton>
-            <IonAlert
-                header="Are you sure you want to delete this habit?"
-                trigger={"alert-delete-habit-" + habit.id} 
-                buttons={[
-                    {
-                        text: 'No',
-                        role: 'cancel',
-                    },
-                    {
-                        text: 'Yes',
-                        role: 'confirm',
-                        handler: () => {
-                            onDelete(habit.id);
-                        },
-                    },
-                ]}
-                onDidDismiss={({ detail }) => console.log(`Dismissed with role: ${detail.role}`)}
-            ></IonAlert>
+                }
+            </IonLabel>
+            <IonButtons slot="end">
+                <IonButton 
+                    onClick={() => onCalendarOpen(habit)}
+                    fill="clear"
+                    size='large'
+                    className='ion-hide-sm-down'
+                >
+                    <IonIcon icon={calendarOutline}></IonIcon>
+                </IonButton>
+                <IonButton 
+                    onClick={() => onEditStart(habit)}
+                    fill="clear"
+                    size='large'
+                    className='ion-hide-sm-down'
+                >
+                    <IonIcon icon={createOutline}></IonIcon>
+                </IonButton>
+                <IonButton 
+                    onClick={() => presentAlert(deleteHabitAlertParams)}
+                    fill="clear"
+                    size='large'
+                    className='ion-hide-sm-down'
+                >
+                    <IonIcon icon={trashOutline}></IonIcon>
+                </IonButton>
+                <IonButton 
+                    id={"open-menu-habit-" + habit.id}
+                    className='ion-hide-md-up'
+                >
+                    <IonIcon icon={ellipsisVerticalCircleOutline}></IonIcon>
+                </IonButton>
+                <IonPopover trigger={"open-menu-habit-" + habit.id} triggerAction="click">
+                    <IonContent class="ion-padding">
+                        <IonItem onClick={() => onCalendarOpen(habit)}>
+                            <IonIcon icon={calendarOutline}></IonIcon>&nbsp;Calendar
+                        </IonItem>
+                        <IonItem onClick={() => onEditStart(habit)}>
+                            <IonIcon icon={createOutline}></IonIcon>&nbsp;Edit
+                        </IonItem> 
+                        <IonItem 
+                            onClick={() => presentAlert(deleteHabitAlertParams)}
+                        >
+                            <IonIcon icon={trashOutline}></IonIcon>&nbsp;Delete
+                        </IonItem>
+                    </IonContent>
+                </IonPopover>
+            </IonButtons>
         </IonItem>
 
     );

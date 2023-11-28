@@ -18,6 +18,11 @@ ion-col span{
   font-size: 12px;
 }
 
+.smallGrey{ 
+  color: #999 !important;
+  font-size: 12px !important;
+}
+
 ion-row {
   height: 50px;
 }
