@@ -1,5 +1,5 @@
 import { IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonIcon, IonPage, IonSegment, IonSegmentButton, IonTitle, IonToolbar } from '@ionic/react';
-import { ellipsisVerticalCircleOutline, home, listOutline, logOutOutline } from 'ionicons/icons';
+import { addCircleOutline, ellipsisVerticalCircleOutline, home, listOutline, logOutOutline } from 'ionicons/icons';
 import { useState } from 'react';
 
 import "@codetrix-studio/capacitor-google-auth";
@@ -18,11 +18,11 @@ export default function HabitsPage(props) {
         <IonToolbar>
           <IonTitle>{appView == 'home' ? 'Today' : 'Recent days'}</IonTitle>
           <IonButtons slot="end">
+            {/* <IonButton onClick={() => {console.log('TODO: add adding habit from here');}}>              
+              <IonIcon icon={addCircleOutline}></IonIcon>
+            </IonButton> */}
             <IonButton onClick={() => props.logout()}>              
               <IonIcon icon={logOutOutline}></IonIcon>
-            </IonButton>
-            <IonButton onClick={() => console.log('opening menu...')}>              
-              <IonIcon icon={ellipsisVerticalCircleOutline}></IonIcon>
             </IonButton>
           </IonButtons>
         </IonToolbar>

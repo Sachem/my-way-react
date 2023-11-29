@@ -4,3 +4,10 @@
     right: 20px;
     font-size: 70px;
 }
+
+.addHabitSmall{
+    position: absolute;
+    bottom: 80px;
+    right: 20px;
+    font-size: 30px;
+}

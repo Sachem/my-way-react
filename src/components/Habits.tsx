@@ -298,7 +298,12 @@ export default function Habits(props) {
             />
             <IonButton 
                 shape="round" 
-                className="addHabit" 
+                className="addHabit ion-hide-sm-down" 
+                onClick={() => {setEditedHabit(null); setAddEditHabitModalOpened(true);}}
+            >+</IonButton>
+            <IonButton 
+                shape="round" 
+                className="addHabitSmall ion-hide-md-up" 
                 onClick={() => {setEditedHabit(null); setAddEditHabitModalOpened(true);}}
             >+</IonButton>
         </>

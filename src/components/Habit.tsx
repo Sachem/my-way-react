@@ -6,6 +6,7 @@ import {
 } from '@ionic/react';
 
 import { addCircleOutline, createOutline, trashOutline , checkmark, close, calendarOutline, ellipsisVerticalCircleOutline} from 'ionicons/icons';
+import { useState } from 'react';
 
 
 function HabitProgressMultipleDayView({habit, day, index, onMarkCompleted, onChangeProgress}){
@@ -70,6 +71,8 @@ function HabitProgressMultipleDayView({habit, day, index, onMarkCompleted, onCha
 export default function Habit({ habit, appView, onDelete, onMarkCompleted, onChangeProgress, onEditStart, onCalendarOpen }) {
 
 const [presentAlert] = useIonAlert();
+const [popoverOpened, setPopoverOpened] = useState(false);
+
 
 const deleteHabitAlertParams = {
     header: 'Are you sure you want to delete this habit?',
@@ -160,20 +163,21 @@ if (appView == 'home') {
                 </IonButton>
                 <IonButton 
                     id={"open-menu-habit-" + habit.id}
+                    onClick={() => setPopoverOpened(true)}
                     className='ion-hide-md-up'
                 >
                     <IonIcon icon={ellipsisVerticalCircleOutline}></IonIcon>
                 </IonButton>
-                <IonPopover trigger={"open-menu-habit-" + habit.id} triggerAction="click">
+                <IonPopover trigger={"open-menu-habit-" + habit.id} isOpen={popoverOpened}>
                     <IonContent class="ion-padding">
-                        <IonItem onClick={() => onCalendarOpen(habit)}>
+                        <IonItem onClick={() => {onCalendarOpen(habit);setPopoverOpened(false)}}>
                             <IonIcon icon={calendarOutline}></IonIcon>&nbsp;Calendar
                         </IonItem>
-                        <IonItem onClick={() => onEditStart(habit)}>
+                        <IonItem onClick={() => {onEditStart(habit);setPopoverOpened(false)}}>
                             <IonIcon icon={createOutline}></IonIcon>&nbsp;Edit
                         </IonItem> 
                         <IonItem 
-                            onClick={() => presentAlert(deleteHabitAlertParams)}
+                            onClick={() => {presentAlert(deleteHabitAlertParams);setPopoverOpened(false)}}
                         >
                             <IonIcon icon={trashOutline}></IonIcon>&nbsp;Delete
                         </IonItem>
