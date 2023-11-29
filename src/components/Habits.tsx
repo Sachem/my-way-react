@@ -32,6 +32,7 @@ export default function Habits(props) {
     const [habits, setHabits] = useState<Habit[]>([]);
     const [dates, setDates] = useState<ProgressDate[]>([]);
     const [habitCategories, setHabitCategories] = useState([]);
+    const [habitUnits, setHabitUnits] = useState([]);
     const [addEditHabitModalOpened, setAddEditHabitModalOpened] = useState(false);
     const [editedHabit, setEditedHabit] = useState<null | Habit>(null);
     const [habitCalendarModalOpened, setHabitCalendarModalOpened] = useState(false);
@@ -59,9 +60,10 @@ export default function Habits(props) {
     }, []);
 
     useEffect(() => {
-        axios.get('/api/habit/categories', config)
+        axios.get('/api/habit/meta', config)
         .then(response => {
-            setHabitCategories(response.data);
+            setHabitCategories(response.data.categories);
+            setHabitUnits(response.data.units);
         })
         .catch(error => {
             console.error(error);
@@ -240,7 +242,8 @@ export default function Habits(props) {
                 </IonList>
                 :
                 (
-                props.appView == 'home' ? (
+                    props.appView == 'home' 
+                    ? 
                     <IonList className="ion-no-padding">
                         {habits.map(habit => (
                             <Habit
@@ -255,8 +258,8 @@ export default function Habits(props) {
                             /> 
                         ))}
                     </IonList>
-                ) : (
-                    <IonGrid>
+                    : 
+                    <IonGrid style={{overflow:scroll}}>
                         <IonRow>
                             <IonCol size="2" key="name"></IonCol>
                             {dates.map((date, index) => (
@@ -264,27 +267,27 @@ export default function Habits(props) {
                             ))}
                         </IonRow>
                         {habits.map(habit => (
-                        <Habit
-                            key={habit.id}
-                            habit={habit}
-                            appView={props.appView}
-                            onDelete={() => deleteHabit(habit.id)}
-                            onMarkCompleted={(dateIndex: number) => markHabitCompleted(habit, dateIndex)}
-                            onChangeProgress={(dateIndex: number, progress: number) => changeHabitProgress(habit, dateIndex, progress)}
-                            onEditStart={(habit: Habit) => startEditHabit(habit)}
-                        /> 
-                    ))}
+                            <Habit
+                                key={habit.id}
+                                habit={habit}
+                                appView={props.appView}
+                                onDelete={() => deleteHabit(habit.id)}
+                                onMarkCompleted={(dateIndex: number) => markHabitCompleted(habit, dateIndex)}
+                                onChangeProgress={(dateIndex: number, progress: number) => changeHabitProgress(habit, dateIndex, progress)}
+                                onEditStart={(habit: Habit) => startEditHabit(habit)}
+                            /> 
+                        ))}
                     </IonGrid>
-                )
                 )
             )
             }           
             </IonContent>
-            
+
             <AddEditHabit 
                 isOpen={addEditHabitModalOpened}  
                 habit={editedHabit}
                 habitCategories={habitCategories} 
+                habitUnits={habitUnits} 
                 onClose={() => {setEditedHabit(null); setAddEditHabitModalOpened(false);}} 
                 onSubmit={(data) => onAddEditHabitSubmit(data)} 
             />

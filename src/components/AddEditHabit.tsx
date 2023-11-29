@@ -7,7 +7,7 @@ import {
     IonSelect, IonSelectOption, IonItem, IonList, IonNote, IonLabel, IonToggle, IonBadge 
 } from '@ionic/react';
 
-export default function AddEditHabit({ isOpen, habitCategories, onClose, onSubmit, habit }) {
+export default function AddEditHabit({ isOpen, habitCategories, habitUnits, onClose, onSubmit, habit }) {
 
     const [measurable, setMeasurable] = useState(false);
 
@@ -25,6 +25,7 @@ export default function AddEditHabit({ isOpen, habitCategories, onClose, onSubmi
             measurable: 0,
             name: "",
             category_id: null,
+            unit_id: null,
             goal: ""
         }
     });
@@ -40,6 +41,7 @@ export default function AddEditHabit({ isOpen, habitCategories, onClose, onSubmi
         if (habit == null) {
             setValue("name", ""); 
             setValue("category_id", null); 
+            setValue("unit_id", null); 
             setValue("measurable", 0); 
             setValue("goal", ""); 
             
@@ -48,6 +50,7 @@ export default function AddEditHabit({ isOpen, habitCategories, onClose, onSubmi
         else {
             setValue("name", habit.name); 
             setValue("category_id", habit.category_id); 
+            setValue("unit_id", habit.unit_id); 
             setValue("measurable", habit.measurable); 
             setValue("goal", habit.goal); 
 
@@ -127,6 +130,7 @@ export default function AddEditHabit({ isOpen, habitCategories, onClose, onSubmi
                         </IonToggle>
                     </IonItem>
                     { measurable &&
+                        <>
                         <IonItem className='addHabitFormItem'>
                             <IonInput
                                 {...register("goal", { required: true })}
@@ -136,6 +140,19 @@ export default function AddEditHabit({ isOpen, habitCategories, onClose, onSubmi
                             ></IonInput>
                             { errors.goal && <IonBadge color="danger">Required</IonBadge> }
                         </IonItem>
+                        <IonItem className='addHabitFormItem'>
+                            <IonSelect 
+                                label="Habit Unit" 
+                                placeholder="Choose unit"
+                                {...register("unit_id", { required: true })}
+                            >
+                                {habitUnits.map(unit => (
+                                    <IonSelectOption key={unit.id} value={unit.id}>{unit.name}</IonSelectOption>
+                                ))}
+                            </IonSelect>
+                            { errors.unit_id && <IonBadge color="danger">Required</IonBadge> }
+                        </IonItem>
+                        </>
                     }
                     <IonItem className='submitItem'>
                         <IonButton

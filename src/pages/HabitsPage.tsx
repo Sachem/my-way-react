@@ -11,7 +11,7 @@ import './HabitsPage.css';
 export default function HabitsPage(props) {
 
   const [appView, setAppView] = useState('home');
-console.log('HabitsPage.props.accessToken', props.accessToken);
+
   return (
     <IonPage>
       <IonHeader>

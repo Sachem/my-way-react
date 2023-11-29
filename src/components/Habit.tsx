@@ -102,7 +102,7 @@ if (appView == 'home') {
                 habit.measurable == 1 && <> 
                     <br />
                     <IonLabel id={"update-progress-habit-"+habit.id} className="smallGrey">
-                        Progress: { habit.progress[0].progress } / { habit.goal } 
+                        Progress: <b>{ habit.progress[0].progress } / { habit.goal }</b> { habit.unit }
                     </IonLabel>
                     <IonAlert
                         trigger={"update-progress-habit-"+habit.id}
