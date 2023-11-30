@@ -39,7 +39,7 @@ export default function AuthPage(props) {
     <IonPage>
         <IonHeader>
             <IonToolbar color="primary">
-                <IonTitle>My Way</IonTitle>
+                <IonTitle><b>My Way</b></IonTitle>
             </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">

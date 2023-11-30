@@ -39,10 +39,9 @@ export default function Login(props) {
     return (  
 
         <IonGrid>
-            <IonRow>
-                <IonCol size-md="6" size-lg="5" size-xs="12">
-                <form className="space-y-4 md:space-y-6" action="#" onSubmit={handleSubmit}>
-                    
+            <IonRow color="primary" justify-content-center>
+                <IonCol align-self-center  size-md="6" size-lg="5" size-xs="12">
+                <form className="" onSubmit={handleSubmit}>
                     <h4>Login Form</h4>
                 
                     <IonItem>
@@ -57,7 +56,7 @@ export default function Login(props) {
                     <IonButton size="large" type="submit" expand="block">Login</IonButton>
                 </form>
                 <p className="text-sm font-light text-white">
-                    Don’t have an account yet? <a href="/auth/registration" className="font-medium text-primary-600 hover:underline text-primary-500">Sign up</a>
+                    Don't have an account yet? <a href="/auth/registration" className="font-medium text-primary-600 hover:underline text-primary-500">Sign up</a>
                 </p>
                 </IonCol>
             </IonRow>

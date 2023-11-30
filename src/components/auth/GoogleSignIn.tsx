@@ -27,7 +27,7 @@ export default function GoogleSignIn() {
                     {
                     loginUrl != null && 
                         <a href={loginUrl}>
-                            <GoogleButton type="dark" />
+                            <GoogleButton type="dark" className="googleButton" />
                         </a>
                     }
                 </IonCol>
