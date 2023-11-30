@@ -16,26 +16,18 @@ export default function HabitsPage(props) {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>{appView == 'home' ? 'Today' : 'Recent days'}</IonTitle>
+          <IonTitle><b className="themeBlue">My Way</b> - {appView == 'home' ? 'Today' : 'Recent days'}</IonTitle>
           <IonButtons slot="end">
             {/* <IonButton onClick={() => {console.log('TODO: add adding habit from here');}}>              
               <IonIcon icon={addCircleOutline}></IonIcon>
             </IonButton> */}
             <IonButton onClick={() => props.logout()}>              
-              <IonIcon icon={logOutOutline}></IonIcon>
+              <IonIcon className="themeBlue" icon={logOutOutline}></IonIcon>
             </IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Today</IonTitle>
-            <IonButtons slot="end">
-              <IonButton>Logout</IonButton>
-            </IonButtons>
-          </IonToolbar>
-        </IonHeader>
         <Habits appView={appView} accessToken={props.accessToken} />
       </IonContent>
       <IonFooter>

@@ -8,6 +8,12 @@
 .addHabitSmall{
     position: absolute;
     bottom: 80px;
-    right: 20px;
+    right: 48px;
     font-size: 30px;
+}
+
+ion-button[shape=circle] {
+    --border-radius: 50%;
+    width: 56px;
+    height: 56px;
 }

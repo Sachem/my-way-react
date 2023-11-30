@@ -20,7 +20,7 @@ export default function AddEditHabit({ isOpen, habitCategories, habitUnits, onCl
         formState: { errors, isSubmitSuccessful },
     } = useForm({
         mode: "onTouched",
-		reValidateMode: "onChange",
+		//reValidateMode: "onChange",
         defaultValues: {
             measurable: 0,
             name: "",
@@ -100,11 +100,12 @@ export default function AddEditHabit({ isOpen, habitCategories, habitUnits, onCl
                         {...register("measurable")}
                     />
                     <IonItem className='addHabitFormItem'>
+                        <IonLabel>Habit Title</IonLabel>
                         <IonInput
                              {...register("name", { required: true, maxLength: 30 })}
                             class="text-input"
-                            label="Habit Title" 
                             placeholder="Enter habit title"
+                            slot="end"
                         ></IonInput>
                         { errors.name && <IonBadge color="danger">Required</IonBadge> }
                     </IonItem>
@@ -126,17 +127,18 @@ export default function AddEditHabit({ isOpen, habitCategories, habitUnits, onCl
                             onIonChange={e => setMeasurableValue(e.detail.checked)}
                         >
                             <IonLabel>Is habit Measurable?</IonLabel>
-                            <IonNote color="medium">(leave unchecked for a simple "Yes / No")</IonNote>
+                            <IonNote color="medium">(leave unchecked for "Yes / No")</IonNote>
                         </IonToggle>
                     </IonItem>
                     { measurable &&
                         <>
                         <IonItem className='addHabitFormItem'>
+                            <IonLabel>Goal</IonLabel>
                             <IonInput
                                 {...register("goal", { required: true })}
-                                class="text-input"
-                                label="Goal" 
+                                class="text-input" 
                                 placeholder="Enter quantity"
+                                slot="end"
                             ></IonInput>
                             { errors.goal && <IonBadge color="danger">Required</IonBadge> }
                         </IonItem>
