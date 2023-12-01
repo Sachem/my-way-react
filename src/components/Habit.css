@@ -13,7 +13,7 @@ ion-col:not(:first-child){
   text-align: center;
 }
 
-ion-col span{
+ion-col span, td span{
   color: #999;
   font-size: 12px;
 }

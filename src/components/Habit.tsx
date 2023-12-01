@@ -164,7 +164,7 @@ if (appView == 'home') {
                 <IonButton 
                     id={"open-menu-habit-" + habit.id}
                     onClick={() => setPopoverOpened(true)}
-                    className='ion-hide-md-up'
+                    className='ion-hide-sm-up'
                 >
                     <IonIcon icon={ellipsisVerticalCircleOutline}></IonIcon>
                 </IonButton>
@@ -189,22 +189,11 @@ if (appView == 'home') {
     );
 } else {
     return (
-        <IonRow>
-            
-            <IonCol size="2" key="name">
-                {habit.name}
-                {
-                    habit.measurable == 1 &&
-                    <>
-                        <br />
-                        <span>Goal: {habit.goal}</span>
-                    </>
-                }
-            </IonCol>
+        <tr>
 
             {
                 habit.progress.map((day, index) => (
-                    <IonCol key={index}>
+                    <td key={index}>
                         <HabitProgressMultipleDayView 
                             habit={habit} 
                             day={day} 
@@ -212,11 +201,11 @@ if (appView == 'home') {
                             onMarkCompleted={() => onMarkCompleted(index)} 
                             onChangeProgress={(progress) => onChangeProgress(index, progress)} 
                         />
-                    </IonCol>
+                    </td>
                 ))
                 
             }
-        </IonRow>
+        </tr>
 
     );    
 }

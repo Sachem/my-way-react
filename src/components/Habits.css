@@ -17,3 +17,30 @@ ion-button[shape=circle] {
     width: 56px;
     height: 56px;
 }
+
+.habitsTable{
+    table-layout:fixed;
+    margin: 5px;
+}
+
+.habitNamesColumn,
+.habitNamesTable tr td{
+    width: 200px !important;
+}
+
+.habitProgressColumn{
+    width: 350px !important;
+}
+
+.habitProgressTable tr td{
+    text-align: center;
+}
+
+.habitsTable tr{
+    height: 40px;
+    border-bottom: 1px #050505 solid;
+}
+
+.habitsTable tr:last-child{
+    border-bottom: none;
+}

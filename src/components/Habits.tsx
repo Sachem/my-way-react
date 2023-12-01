@@ -259,25 +259,49 @@ export default function Habits(props) {
                         ))}
                     </IonList>
                     : 
-                    <IonGrid style={{overflow:scroll}}>
-                        <IonRow>
-                            <IonCol size="2" key="name"></IonCol>
-                            {dates.map((date, index) => (
-                                <IonCol key={index}>{date.dayOfWeek}<br /><span>{date.dayInMonth}</span></IonCol> 
-                            ))}
-                        </IonRow>
-                        {habits.map(habit => (
-                            <Habit
-                                key={habit.id}
-                                habit={habit}
-                                appView={props.appView}
-                                onDelete={() => deleteHabit(habit.id)}
-                                onMarkCompleted={(dateIndex: number) => markHabitCompleted(habit, dateIndex)}
-                                onChangeProgress={(dateIndex: number, progress: number) => changeHabitProgress(habit, dateIndex, progress)}
-                                onEditStart={(habit: Habit) => startEditHabit(habit)}
-                            /> 
-                        ))}
-                    </IonGrid>
+                    <table className='habitsTable ion-color-light'>
+                        <tr>
+                            <td key="names" className='habitNamesColumn'>
+                                <table className='habitNamesTable'>
+                                    <tr><td>&nbsp;</td></tr>
+                                    {habits.map(habit => (
+                                        <tr key={habit.id}>
+                                            <td key="name">
+                                                {habit.name}
+                                                {
+                                                    habit.measurable == 1 &&
+                                                    <>
+                                                        <br />
+                                                        <span>Goal: {habit.goal}</span>
+                                                    </>
+                                                }
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </table>
+                            </td>
+                            <td key="values" className='habitProgressColumn'>
+                                <table className="habitProgressTable">
+                                    <tr>
+                                        {dates.map((date, index) => (
+                                            <td key={index}>{date.dayOfWeek}<br /><span>{date.dayInMonth}</span></td> 
+                                        ))}
+                                    </tr>
+                                    {habits.map(habit => (
+                                        <Habit
+                                            key={habit.id}
+                                            habit={habit}
+                                            appView={props.appView}
+                                            onDelete={() => deleteHabit(habit.id)}
+                                            onMarkCompleted={(dateIndex: number) => markHabitCompleted(habit, dateIndex)}
+                                            onChangeProgress={(dateIndex: number, progress: number) => changeHabitProgress(habit, dateIndex, progress)}
+                                            onEditStart={(habit: Habit) => startEditHabit(habit)}
+                                        /> 
+                                    ))}
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
                 )
             )
             }           
@@ -298,7 +322,7 @@ export default function Habits(props) {
             />
             <IonButton 
                 shape="round" 
-                className="addHabit ion-hide-sm-down" 
+                className="addHabit ion-hide-md-down" 
                 onClick={() => {setEditedHabit(null); setAddEditHabitModalOpened(true);}}
             >+</IonButton>
             <IonButton 
