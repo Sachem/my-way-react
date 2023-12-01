@@ -259,10 +259,9 @@ export default function Habits(props) {
                         ))}
                     </IonList>
                     : 
-                    <table className='habitsTable ion-color-light'>
-                        <tr>
-                            <td key="names" className='habitNamesColumn'>
-                                <table className='habitNamesTable'>
+                        <div className='multiDayWrapper'>
+                            <div className='habitNamesColumn'>
+                                <table className='habitsTable habitNamesTable'>
                                     <tr><td>&nbsp;</td></tr>
                                     {habits.map(habit => (
                                         <tr key={habit.id}>
@@ -279,9 +278,9 @@ export default function Habits(props) {
                                         </tr>
                                     ))}
                                 </table>
-                            </td>
-                            <td key="values" className='habitProgressColumn'>
-                                <table className="habitProgressTable">
+                            </div>
+                            <div className='habitProgressColumn'>
+                                <table className='habitsTable habitProgressTable'>
                                     <tr>
                                         {dates.map((date, index) => (
                                             <td key={index}>{date.dayOfWeek}<br /><span>{date.dayInMonth}</span></td> 
@@ -299,9 +298,8 @@ export default function Habits(props) {
                                         /> 
                                     ))}
                                 </table>
-                            </td>
-                        </tr>
-                    </table>
+                            </div>
+                        </div>
                 )
             )
             }           

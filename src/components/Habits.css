@@ -18,29 +18,35 @@ ion-button[shape=circle] {
     height: 56px;
 }
 
-.habitsTable{
-    table-layout:fixed;
+.multiDayWrapper{
     margin: 5px;
 }
 
-.habitNamesColumn,
-.habitNamesTable tr td{
-    width: 200px !important;
+.habitNamesColumn{
+    width: 100px !important;
+    float: left;
 }
 
 .habitProgressColumn{
-    width: 350px !important;
+    float: left;
+    width: 250px;
+    overflow-x: scroll;
 }
 
-.habitProgressTable tr td{
-    text-align: center;
+.habitsTable{
+    table-layout:fixed;
 }
 
 .habitsTable tr{
+    border-bottom: 1px #151515 solid;
     height: 40px;
-    border-bottom: 1px #050505 solid;
 }
 
 .habitsTable tr:last-child{
     border-bottom: none;
+}
+
+.habitProgressTable tr td{
+    text-align: center;
+    width: 35px;
 }
