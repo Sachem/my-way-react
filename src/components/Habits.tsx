@@ -38,8 +38,8 @@ export default function Habits(props) {
     const [habitCalendarModalOpened, setHabitCalendarModalOpened] = useState(false);
     const [calendarHabit, setCalendarHabit] = useState<null | Habit>(null);
 
-    console.log("appView: " + props.appView);
-    console.log("Habits.props.accessToken: " + props.accessToken);
+    // console.log("appView: " + props.appView);
+    // console.log("Habits.props.accessToken: " + props.accessToken);
 
     let config = { // TODO: move to some shared config 
         headers: {
@@ -218,6 +218,7 @@ export default function Habits(props) {
         setCalendarHabit(habit);
     }
 
+    console.log(dates);
     console.log(habits);
 
     return (

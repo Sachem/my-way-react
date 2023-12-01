@@ -15,21 +15,43 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 function isSameDay(a, b) {
     return differenceInCalendarDays(a, b) === 0;
-  }
+}
+
+function getDatesToAddToClassArray(habit) {
+    console.log("calendar habit.progress:", habit.progress);
+
+    let result = [];
+
+    habit.progress.forEach((day) => {
+        if (day.done == 0){
+            return;
+        }
+
+        const date = day.date.split("-");
+
+        result.push(new Date(date[0], date[1], date[2]))
+    });
+
+    return result;
+}
 
 export default function HabitCalendar({ isOpen, onClose, habit }) {
     
     const [value, onChange] = useState<Value>(new Date());
 
-    const datesToAddClassTo = [new Date(2023, 10, 24), new Date(2023, 10, 26)];
-    console.log("datesToAddClassTo", datesToAddClassTo);
+    if (habit == null)
+    {
+        return;
+    }
+
+    const datesToAddClassTo = getDatesToAddToClassArray(habit);
 
     function tileClassName({ date, view }) {
         // Add class to tiles in month view only
         if (view === 'month') {
             // Check if a date React-Calendar wants to check is on the list of dates to add class to
             if (datesToAddClassTo.find(dDate => isSameDay(dDate, date))) {
-                return 'myClassName';
+                return 'dayDoneCalendarClass';
             }
         }
     }
