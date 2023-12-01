@@ -20,16 +20,20 @@ ion-button[shape=circle] {
 
 .multiDayWrapper{
     margin: 5px;
+    overflow-x: hidden;
+    display: flex;
 }
 
 .habitNamesColumn{
-    width: 100px !important;
-    float: left;
+    flex: 1 1 auto;
+}
+
+.habitNamesColumn tr td{
+    white-space: nowrap;
 }
 
 .habitProgressColumn{
-    float: left;
-    width: 250px;
+    flex: 3 3 auto;
     overflow-x: scroll;
 }
 
@@ -46,7 +50,23 @@ ion-button[shape=circle] {
     border-bottom: none;
 }
 
+.habitNamesTable tr td div{
+    overflow-x: hidden;
+}
+
 .habitProgressTable tr td{
     text-align: center;
-    width: 35px;
+    min-width: 43px;
+}
+
+.habitsTable ion-icon{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 800px) {
+    .habitsTable{
+        font-size: 13px;
+    }
+
 }
