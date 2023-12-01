@@ -259,6 +259,8 @@ export default function Habits(props) {
                         ))}
                     </IonList>
                     : 
+                    <IonList className="ion-no-padding">
+                        <IonItem>
                         <div className='multiDayWrapper'>
                             <div className='habitNamesColumn'>
                                 <table className='habitsTable habitNamesTable'>
@@ -266,6 +268,7 @@ export default function Habits(props) {
                                     {habits.map(habit => (
                                         <tr key={habit.id}>
                                             <td key="name">
+                                                <div>
                                                 {habit.name}
                                                 {
                                                     habit.measurable == 1 &&
@@ -274,6 +277,7 @@ export default function Habits(props) {
                                                         <span>Goal: {habit.goal}</span>
                                                     </>
                                                 }
+                                                </div>
                                             </td>
                                         </tr>
                                     ))}
@@ -300,6 +304,8 @@ export default function Habits(props) {
                                 </table>
                             </div>
                         </div>
+                        </IonItem>
+                    </IonList>
                 )
             )
             }           

@@ -19,7 +19,7 @@ ion-button[shape=circle] {
 }
 
 .multiDayWrapper{
-    margin: 5px;
+    margin-top: 5px;
     overflow-x: hidden;
     display: flex;
 }
@@ -42,7 +42,7 @@ ion-button[shape=circle] {
 }
 
 .habitsTable tr{
-    border-bottom: 1px #151515 solid;
+    border-bottom: 1px rgb(34, 34, 34) solid;
     height: 40px;
 }
 
@@ -51,7 +51,7 @@ ion-button[shape=circle] {
 }
 
 .habitNamesTable tr td div{
-    overflow-x: hidden;
+    padding-right: 3px;
 }
 
 .habitProgressTable tr td{
