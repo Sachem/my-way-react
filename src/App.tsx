@@ -48,6 +48,8 @@ console.log('sessionStorage.accessToken', sessionStorage.getItem('accessToken'))
   console.log('loggedIn', loggedIn);
 
   const login = (result) => {
+    console.log('login.result', result);
+
       setLoggedIn(true);
 //      setName('test_name');
       sessionStorage.setItem('loggedIn', 'true');
