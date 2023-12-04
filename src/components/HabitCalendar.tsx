@@ -1,7 +1,8 @@
 import 'react-calendar/dist/Calendar.css';
 import './HabitCalendar.css';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Calendar from 'react-calendar';
 import { differenceInCalendarDays } from 'date-fns';
 
@@ -17,34 +18,37 @@ function isSameDay(a, b) {
     return differenceInCalendarDays(a, b) === 0;
 }
 
-function getDatesToAddToClassArray(habit) {
-    console.log("calendar habit.progress:", habit.progress);
 
-    let result = [];
 
-    habit.progress.forEach((day) => {
-        if (day.done == 0){
-            return;
-        }
-
-        const date = day.date.split("-");
-
-        result.push(new Date(date[0], date[1], date[2]))
-    });
-
-    return result;
-}
-
-export default function HabitCalendar({ isOpen, onClose, habit }) {
+export default function HabitCalendar({ isOpen, habit, accessToken, onClose }) {
     
     const [value, onChange] = useState<Value>(new Date());
+    const [datesToAddClassTo, setDatesToAddClassTo] = useState([]);
 
-    if (habit == null)
-    {
-        return;
+    useEffect(() => {
+        if (habit != null) {
+            getDatesToAddToClassArray(habit.progress);
+        }  
+    }, [habit]);
+
+    function getDatesToAddToClassArray(progress) {
+    
+        let result = [];
+    
+        progress.forEach((day) => {
+            if (day.done == 0){
+                return;
+            }
+    
+            const date = day.date.split("-");
+    
+            result.push(new Date(date[0], date[1], date[2]))
+        });
+    
+        setDatesToAddClassTo(result);
     }
 
-    const datesToAddClassTo = getDatesToAddToClassArray(habit);
+    
 
     function tileClassName({ date, view }) {
         // Add class to tiles in month view only
@@ -54,6 +58,31 @@ export default function HabitCalendar({ isOpen, onClose, habit }) {
                 return 'dayDoneCalendarClass';
             }
         }
+    }
+
+    function loadProgress(startDate) {
+        const offset = startDate.getTimezoneOffset();
+        startDate = new Date(startDate.getTime() - (offset*60*1000));
+        startDate = startDate.toISOString().split('T')[0];
+
+        console.log('load progress for month starting at: ' + startDate)
+
+        axios.get('/api/habit/load-progress/' + habit.id, {
+            headers: {
+              'Authorization': 'Bearer ' + accessToken
+            },
+            params: {
+                startDate: startDate,
+            }
+        })
+        .then(response => {
+            console.log('progress data returned: ', response.data);
+
+            getDatesToAddToClassArray(response.data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
     }
 
     
@@ -74,6 +103,7 @@ export default function HabitCalendar({ isOpen, onClose, habit }) {
                 <Calendar
                     onChange={onChange}
                     tileClassName={tileClassName}
+                    onActiveStartDateChange={({ action, activeStartDate, value, view }) => loadProgress(activeStartDate)}
                 />
             </IonContent>
         </IonModal>

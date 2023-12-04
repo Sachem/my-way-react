@@ -48,7 +48,7 @@ export default function Habits(props) {
     }
 
     useEffect(() => {
-        axios.get('/api/habits', config) // TODO: read API endpoint from some shared config
+        axios.get('/api/habits', config)
         .then(response => {
             setHabits(response.data.data);
             setDates(response.data.meta.dates);
@@ -265,7 +265,10 @@ export default function Habits(props) {
                         <div className='multiDayWrapper'>
                             <div className='habitNamesColumn'>
                                 <table className='habitsTable habitNamesTable'>
+                                    <thead>
                                     <tr><td>&nbsp;</td></tr>
+                                    </thead>
+                                    <tbody>
                                     {habits.map(habit => (
                                         <tr key={habit.id}>
                                             <td key="name">
@@ -282,15 +285,19 @@ export default function Habits(props) {
                                             </td>
                                         </tr>
                                     ))}
+                                    </tbody>
                                 </table>
                             </div>
                             <div className='habitProgressColumn'>
                                 <table className='habitsTable habitProgressTable'>
+                                    <thead>
                                     <tr>
                                         {dates.map((date, index) => (
                                             <td key={index}>{date.dayOfWeek}<br /><span>{date.dayInMonth}</span></td> 
                                         ))}
                                     </tr>
+                                    </thead>
+                                    <tbody>
                                     {habits.map(habit => (
                                         <Habit
                                             key={habit.id}
@@ -302,6 +309,7 @@ export default function Habits(props) {
                                             onEditStart={(habit: Habit) => startEditHabit(habit)}
                                         /> 
                                     ))}
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -323,6 +331,7 @@ export default function Habits(props) {
             <HabitCalendar 
                 isOpen={habitCalendarModalOpened}  
                 habit={calendarHabit}
+                accessToken={props.accessToken}
                 onClose={() => {setCalendarHabit(null); setHabitCalendarModalOpened(false);}} 
             />
             <IonButton 

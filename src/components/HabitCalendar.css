@@ -1,5 +1,6 @@
 .dayDoneCalendarClass{
-    background-color: green;
+    background-color: green !important;
+    color: #fff;
 }
 
 .react-calendar {
@@ -24,6 +25,8 @@
 
 .react-calendar__tile--now {
   background: #715477;
+  border: 1px white solid !important;
+  border-radius: 0%;
 }
 
 .react-calendar__tile--now:enabled:hover,
