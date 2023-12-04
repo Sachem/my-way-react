@@ -24,7 +24,7 @@ export default function AuthPage(props) {
         </IonHeader>
         <IonContent className="ion-padding">
             <Route exact path='/auth'>
-                <GoogleSignIn login={props.login} />
+                <GoogleSignIn login={props.googleLogin} />
                 <Login login={props.login} />
             </Route>
             <Route path='/auth/registration'>

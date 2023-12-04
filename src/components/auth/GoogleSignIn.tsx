@@ -1,10 +1,9 @@
 import {useState, useEffect} from 'react';
 import { IonRow, IonCol, IonGrid, IonButton } from '@ionic/react';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import axios from 'axios';
 
 export default function GoogleSignIn(props) {
-
-   // const [loginUrl, setLoginUrl] = useState(null);
 
     useEffect(() => {
         GoogleAuth.initialize({
@@ -22,6 +21,19 @@ export default function GoogleSignIn(props) {
 console.log('result', result)
         if (result) {
            // props.login(result);
+           axios.get('/api/auth/socialite/google/callback/'+result.authentication.accessToken)
+            .then(response => {
+                console.log('response', response)
+
+                if (response.status === 200) {
+                    props.login(response.data)
+                }
+            }).catch(error => {
+                if (error.response) {
+                  
+                    console.log('error:',error.response);
+                } 
+            });
         }
     };
 
