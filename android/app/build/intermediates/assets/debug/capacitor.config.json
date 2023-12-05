@@ -1,0 +1,18 @@
+{
+	"appId": "co.uk.zeroonesolutions.myway",
+	"appName": "My Way",
+	"webDir": "dist",
+	"server": {
+		"androidScheme": "https"
+	},
+	"plugins": {
+		"GoogleAuth": {
+			"scopes": [
+				"profile",
+				"email"
+			],
+			"serverClientId": "115573134563-ivq857r42h71gnqr8cbcujohi46n58ip.apps.googleusercontent.com",
+			"forceCodeForRefreshToken": true
+		}
+	}
+}
