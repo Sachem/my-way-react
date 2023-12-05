@@ -3,8 +3,18 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import axios from 'axios';
 
-// axios.defaults.baseURL = 'https://myway-api.01solutions.co.uk';
-axios.defaults.baseURL = 'http://0.0.0.0';
+const hostname = window && window.location && window.location.hostname;
+
+let apiEndpoint = 'http://0.0.0.0';
+if (hostname === 'myway.01solutions.co.uk') {
+  apiEndpoint = 'https://myway-api.01solutions.co.uk';
+} 
+
+console.log('apiEndpoint', apiEndpoint)
+axios.defaults.baseURL = apiEndpoint;
+
+//axios.defaults.baseURL = 'https://myway-api.01solutions.co.uk';
+//axios.defaults.baseURL = 'http://0.0.0.0';
 
 //axios.defaults.headers.common['Authorization'] = 'AUTH TOKEN';
 axios.defaults.headers.post['Content-Type'] = 'application/json';

@@ -1,0 +1,205 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="co.uk.zeroonesolutions.myway"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="22"
+8-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="33" />
+9-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml
+10
+11    <!-- Permissions -->
+12
+13    <uses-permission android:name="android.permission.INTERNET" />
+13-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:40:5-67
+13-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:40:22-64
+14    <uses-permission android:name="android.permission.VIBRATE" />
+14-->[:capacitor-haptics] /home/sachem/Dev/my-way-react/node_modules/@capacitor/haptics/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:7:5-66
+14-->[:capacitor-haptics] /home/sachem/Dev/my-way-react/node_modules/@capacitor/haptics/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:7:22-63
+15    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+15-->[:codetrix-studio-capacitor-google-auth] /home/sachem/Dev/my-way-react/node_modules/@codetrix-studio/capacitor-google-auth/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:7:5-74
+15-->[:codetrix-studio-capacitor-google-auth] /home/sachem/Dev/my-way-react/node_modules/@codetrix-studio/capacitor-google-auth/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:7:22-71
+16
+17    <permission
+17-->[androidx.core:core:1.10.0] /home/sachem/.gradle/caches/transforms-3/4084e7bcb4a1738e1ff26326a1997c6e/transformed/core-1.10.0/AndroidManifest.xml:22:5-24:47
+18        android:name="co.uk.zeroonesolutions.myway.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+18-->[androidx.core:core:1.10.0] /home/sachem/.gradle/caches/transforms-3/4084e7bcb4a1738e1ff26326a1997c6e/transformed/core-1.10.0/AndroidManifest.xml:23:9-81
+19        android:protectionLevel="signature" />
+19-->[androidx.core:core:1.10.0] /home/sachem/.gradle/caches/transforms-3/4084e7bcb4a1738e1ff26326a1997c6e/transformed/core-1.10.0/AndroidManifest.xml:24:9-44
+20
+21    <uses-permission android:name="co.uk.zeroonesolutions.myway.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+21-->[androidx.core:core:1.10.0] /home/sachem/.gradle/caches/transforms-3/4084e7bcb4a1738e1ff26326a1997c6e/transformed/core-1.10.0/AndroidManifest.xml:26:5-97
+21-->[androidx.core:core:1.10.0] /home/sachem/.gradle/caches/transforms-3/4084e7bcb4a1738e1ff26326a1997c6e/transformed/core-1.10.0/AndroidManifest.xml:26:22-94
+22
+23    <application
+23-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:4:5-36:19
+24        android:allowBackup="true"
+24-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:5:9-35
+25        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+25-->[androidx.core:core:1.10.0] /home/sachem/.gradle/caches/transforms-3/4084e7bcb4a1738e1ff26326a1997c6e/transformed/core-1.10.0/AndroidManifest.xml:28:18-86
+26        android:debuggable="true"
+27        android:icon="@mipmap/ic_launcher"
+27-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:6:9-43
+28        android:label="@string/app_name"
+28-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:7:9-41
+29        android:roundIcon="@mipmap/ic_launcher_round"
+29-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:8:9-54
+30        android:supportsRtl="true"
+30-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:9:9-35
+31        android:testOnly="true"
+32        android:theme="@style/AppTheme" >
+32-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:10:9-40
+33        <activity
+33-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:12:9-25:20
+34            android:name="co.uk.zeroonesolutions.myway.MainActivity"
+34-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:14:13-41
+35            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
+35-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:13:13-129
+36            android:exported="true"
+36-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:18:13-36
+37            android:label="@string/title_activity_main"
+37-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:15:13-56
+38            android:launchMode="singleTask"
+38-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:17:13-44
+39            android:theme="@style/AppTheme.NoActionBarLaunch" >
+39-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:16:13-62
+40            <intent-filter>
+40-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:20:13-23:29
+41                <action android:name="android.intent.action.MAIN" />
+41-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:21:17-69
+41-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:21:25-66
+42
+43                <category android:name="android.intent.category.LAUNCHER" />
+43-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:22:17-77
+43-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:22:27-74
+44            </intent-filter>
+45        </activity>
+46
+47        <provider
+48            android:name="androidx.core.content.FileProvider"
+48-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:28:13-62
+49            android:authorities="co.uk.zeroonesolutions.myway.fileprovider"
+49-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:29:13-64
+50            android:exported="false"
+50-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:30:13-37
+51            android:grantUriPermissions="true" >
+51-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:31:13-47
+52            <meta-data
+52-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:32:13-34:64
+53                android:name="android.support.FILE_PROVIDER_PATHS"
+53-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:33:17-67
+54                android:resource="@xml/file_paths" />
+54-->/home/sachem/Dev/my-way-react/android/app/src/main/AndroidManifest.xml:34:17-51
+55        </provider>
+56
+57        <activity
+57-->[com.google.android.gms:play-services-auth:18.1.0] /home/sachem/.gradle/caches/transforms-3/cfddad095a8d220a4f2c90ca096a6599/transformed/play-services-auth-18.1.0/AndroidManifest.xml:23:9-27:75
+58            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+58-->[com.google.android.gms:play-services-auth:18.1.0] /home/sachem/.gradle/caches/transforms-3/cfddad095a8d220a4f2c90ca096a6599/transformed/play-services-auth-18.1.0/AndroidManifest.xml:24:13-93
+59            android:excludeFromRecents="true"
+59-->[com.google.android.gms:play-services-auth:18.1.0] /home/sachem/.gradle/caches/transforms-3/cfddad095a8d220a4f2c90ca096a6599/transformed/play-services-auth-18.1.0/AndroidManifest.xml:25:13-46
+60            android:exported="false"
+60-->[com.google.android.gms:play-services-auth:18.1.0] /home/sachem/.gradle/caches/transforms-3/cfddad095a8d220a4f2c90ca096a6599/transformed/play-services-auth-18.1.0/AndroidManifest.xml:26:13-37
+61            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+61-->[com.google.android.gms:play-services-auth:18.1.0] /home/sachem/.gradle/caches/transforms-3/cfddad095a8d220a4f2c90ca096a6599/transformed/play-services-auth-18.1.0/AndroidManifest.xml:27:13-72
+62        <!--
+63            Service handling Google Sign-In user revocation. For apps that do not integrate with
+64            Google Sign-In, this service will never be started.
+65        -->
+66        <service
+66-->[com.google.android.gms:play-services-auth:18.1.0] /home/sachem/.gradle/caches/transforms-3/cfddad095a8d220a4f2c90ca096a6599/transformed/play-services-auth-18.1.0/AndroidManifest.xml:33:9-37:51
+67            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+67-->[com.google.android.gms:play-services-auth:18.1.0] /home/sachem/.gradle/caches/transforms-3/cfddad095a8d220a4f2c90ca096a6599/transformed/play-services-auth-18.1.0/AndroidManifest.xml:34:13-89
+68            android:exported="true"
+68-->[com.google.android.gms:play-services-auth:18.1.0] /home/sachem/.gradle/caches/transforms-3/cfddad095a8d220a4f2c90ca096a6599/transformed/play-services-auth-18.1.0/AndroidManifest.xml:35:13-36
+69            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
+69-->[com.google.android.gms:play-services-auth:18.1.0] /home/sachem/.gradle/caches/transforms-3/cfddad095a8d220a4f2c90ca096a6599/transformed/play-services-auth-18.1.0/AndroidManifest.xml:36:13-107
+70            android:visibleToInstantApps="true" />
+70-->[com.google.android.gms:play-services-auth:18.1.0] /home/sachem/.gradle/caches/transforms-3/cfddad095a8d220a4f2c90ca096a6599/transformed/play-services-auth-18.1.0/AndroidManifest.xml:37:13-48
+71
+72        <activity
+72-->[com.google.android.gms:play-services-base:17.1.0] /home/sachem/.gradle/caches/transforms-3/1873b3af5d7b893d936cc92df3499b37/transformed/play-services-base-17.1.0/AndroidManifest.xml:23:9-26:75
+73            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+73-->[com.google.android.gms:play-services-base:17.1.0] /home/sachem/.gradle/caches/transforms-3/1873b3af5d7b893d936cc92df3499b37/transformed/play-services-base-17.1.0/AndroidManifest.xml:24:13-79
+74            android:exported="false"
+74-->[com.google.android.gms:play-services-base:17.1.0] /home/sachem/.gradle/caches/transforms-3/1873b3af5d7b893d936cc92df3499b37/transformed/play-services-base-17.1.0/AndroidManifest.xml:25:13-37
+75            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+75-->[com.google.android.gms:play-services-base:17.1.0] /home/sachem/.gradle/caches/transforms-3/1873b3af5d7b893d936cc92df3499b37/transformed/play-services-base-17.1.0/AndroidManifest.xml:26:13-72
+76
+77        <meta-data
+77-->[com.google.android.gms:play-services-basement:17.1.1] /home/sachem/.gradle/caches/transforms-3/279e11179fcbb0d08a9a7f888a5157c9/transformed/play-services-basement-17.1.1/AndroidManifest.xml:23:9-25:69
+78            android:name="com.google.android.gms.version"
+78-->[com.google.android.gms:play-services-basement:17.1.1] /home/sachem/.gradle/caches/transforms-3/279e11179fcbb0d08a9a7f888a5157c9/transformed/play-services-basement-17.1.1/AndroidManifest.xml:24:13-58
+79            android:value="@integer/google_play_services_version" />
+79-->[com.google.android.gms:play-services-basement:17.1.1] /home/sachem/.gradle/caches/transforms-3/279e11179fcbb0d08a9a7f888a5157c9/transformed/play-services-basement-17.1.1/AndroidManifest.xml:25:13-66
+80
+81        <provider
+81-->[androidx.emoji2:emoji2:1.2.0] /home/sachem/.gradle/caches/transforms-3/bc4e404d2e4e27a8333e074e645fe6c4/transformed/emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+82            android:name="androidx.startup.InitializationProvider"
+82-->[androidx.emoji2:emoji2:1.2.0] /home/sachem/.gradle/caches/transforms-3/bc4e404d2e4e27a8333e074e645fe6c4/transformed/emoji2-1.2.0/AndroidManifest.xml:25:13-67
+83            android:authorities="co.uk.zeroonesolutions.myway.androidx-startup"
+83-->[androidx.emoji2:emoji2:1.2.0] /home/sachem/.gradle/caches/transforms-3/bc4e404d2e4e27a8333e074e645fe6c4/transformed/emoji2-1.2.0/AndroidManifest.xml:26:13-68
+84            android:exported="false" >
+84-->[androidx.emoji2:emoji2:1.2.0] /home/sachem/.gradle/caches/transforms-3/bc4e404d2e4e27a8333e074e645fe6c4/transformed/emoji2-1.2.0/AndroidManifest.xml:27:13-37
+85            <meta-data
+85-->[androidx.emoji2:emoji2:1.2.0] /home/sachem/.gradle/caches/transforms-3/bc4e404d2e4e27a8333e074e645fe6c4/transformed/emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+86                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+86-->[androidx.emoji2:emoji2:1.2.0] /home/sachem/.gradle/caches/transforms-3/bc4e404d2e4e27a8333e074e645fe6c4/transformed/emoji2-1.2.0/AndroidManifest.xml:30:17-75
+87                android:value="androidx.startup" />
+87-->[androidx.emoji2:emoji2:1.2.0] /home/sachem/.gradle/caches/transforms-3/bc4e404d2e4e27a8333e074e645fe6c4/transformed/emoji2-1.2.0/AndroidManifest.xml:31:17-49
+88            <meta-data
+88-->[androidx.lifecycle:lifecycle-process:2.6.1] /home/sachem/.gradle/caches/transforms-3/6965ddfd7c9bb67e76de74f23369d3cb/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:29:13-31:52
+89                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+89-->[androidx.lifecycle:lifecycle-process:2.6.1] /home/sachem/.gradle/caches/transforms-3/6965ddfd7c9bb67e76de74f23369d3cb/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:30:17-78
+90                android:value="androidx.startup" />
+90-->[androidx.lifecycle:lifecycle-process:2.6.1] /home/sachem/.gradle/caches/transforms-3/6965ddfd7c9bb67e76de74f23369d3cb/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:31:17-49
+91            <meta-data
+91-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+92                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+92-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+93                android:value="androidx.startup" />
+93-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+94        </provider>
+95
+96        <receiver
+96-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+97            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+97-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+98            android:directBootAware="false"
+98-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+99            android:enabled="true"
+99-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+100            android:exported="true"
+100-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+101            android:permission="android.permission.DUMP" >
+101-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+102            <intent-filter>
+102-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+103                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+103-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+103-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+104            </intent-filter>
+105            <intent-filter>
+105-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+106                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+106-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+106-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+107            </intent-filter>
+108            <intent-filter>
+108-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+109                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+109-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+109-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+110            </intent-filter>
+111            <intent-filter>
+111-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+112                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+112-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+112-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/sachem/.gradle/caches/transforms-3/a916dcd0a76c646859857390ab72a1c7/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
+113            </intent-filter>
+114        </receiver>
+115    </application>
+116
+117</manifest>
