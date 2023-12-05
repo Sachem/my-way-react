@@ -29,12 +29,16 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import { Capacitor } from '@capacitor/core';
 /* Tailwind styles */
 // import './theme/tailwind.css';
 setupIonicReact();
 
 export default function App() {
   // sessionStorage.setItem('loggedIn', 'false');
+
+console.log('Capacitor.getPlatform();', Capacitor.getPlatform());
+const platform = Capacitor.getPlatform();
 
 console.log('sessionStorage.loggedIn', sessionStorage.getItem('loggedIn'));
 console.log('sessionStorage.accessToken', sessionStorage.getItem('accessToken'));

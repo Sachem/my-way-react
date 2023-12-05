@@ -2,16 +2,24 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import axios from 'axios';
+import { Capacitor } from '@capacitor/core';
 
 const hostname = window && window.location && window.location.hostname;
 
 let apiEndpoint = 'http://0.0.0.0';
-if (hostname === 'myway.01solutions.co.uk') {
+if (Capacitor.getPlatform() != 'web') {
+  apiEndpoint = 'https://myway-api.01solutions.co.uk';
+}
+else if (hostname === 'myway.01solutions.co.uk') {
   apiEndpoint = 'https://myway-api.01solutions.co.uk';
 } 
 
 console.log('apiEndpoint', apiEndpoint)
 axios.defaults.baseURL = apiEndpoint;
+
+
+console.log('Capacitor.getPlatform();', Capacitor.getPlatform());
+
 
 //axios.defaults.baseURL = 'https://myway-api.01solutions.co.uk';
 //axios.defaults.baseURL = 'http://0.0.0.0';

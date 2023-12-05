@@ -2,19 +2,23 @@ import {useState, useEffect} from 'react';
 import { IonRow, IonCol, IonGrid, IonButton } from '@ionic/react';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import axios from 'axios';
+import { Capacitor } from '@capacitor/core';
 
 export default function GoogleSignIn(props) {
 
-    useEffect(() => {
-        GoogleAuth.initialize({
-            clientId: '115573134563-ivq857r42h71gnqr8cbcujohi46n58ip.apps.googleusercontent.com',
-            scopes: ['profile', 'email'],
-            grantOfflineAccess: true,
-          });
-    }, []);
+    if (Capacitor.getPlatform() != 'web') {
+        useEffect(() => {
+            GoogleAuth.initialize({
+                clientId: '115573134563-ivq857r42h71gnqr8cbcujohi46n58ip.apps.googleusercontent.com',
+                scopes: ['profile', 'email'],
+                grantOfflineAccess: true,
+            });
+        }, []);
+    }
 
     const signIn = async function () {
         const result = await GoogleAuth.signIn();
+        console.log('result', result)
 
         // set TOKEN in local storage
         // set authenticated state

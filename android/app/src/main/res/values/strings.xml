@@ -4,4 +4,5 @@
     <string name="title_activity_main">My Way</string>
     <string name="package_name">co.uk.zeroonesolutions.myway</string>
     <string name="custom_url_scheme">co.uk.zeroonesolutions.myway</string>
+    <string name="server_client_id">115573134563-ivq857r42h71gnqr8cbcujohi46n58ip.apps.googleusercontent.com</string>
 </resources>

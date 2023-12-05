@@ -11,6 +11,7 @@ mipmap ic_launcher_round
 string app_name
 string custom_url_scheme
 string package_name
+string server_client_id
 string title_activity_main
 style AppTheme
 style AppTheme.NoActionBar
