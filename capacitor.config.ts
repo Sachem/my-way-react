@@ -1,9 +1,9 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'co.uk.01solutions.myway',
+  appId: 'co.uk.zeroonesolutions.myway',
   appName: 'My Way',
-  webDir: 'build',
+  webDir: 'dist',
   server: {
     androidScheme: 'https'
   },

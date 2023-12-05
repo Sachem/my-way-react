@@ -68,7 +68,6 @@ console.log('sessionStorage.accessToken', sessionStorage.getItem('accessToken'))
   };
 
   const googleLogin = (result) => {
-    console.log(result);
     setLoggedIn(true);
     sessionStorage.setItem('loggedIn', 'true');
 

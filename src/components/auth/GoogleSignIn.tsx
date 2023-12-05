@@ -18,7 +18,7 @@ export default function GoogleSignIn(props) {
 
         // set TOKEN in local storage
         // set authenticated state
-console.log('result', result)
+
         if (result) {
            // props.login(result);
            axios.get('/api/auth/socialite/google/callback/'+result.authentication.accessToken)

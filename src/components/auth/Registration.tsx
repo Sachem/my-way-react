@@ -71,7 +71,7 @@ console.log("registered", registered);
                             <IonInput type="password" name="confirm-password" id="confirm-password" placeholder="••••••••" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required="" />
                         </IonItem>
         
-                        <IonButton size="large" type="submit" expand="block">Sign Up</IonButton>
+                        <IonButton type="submit" expand="block">Sign Up</IonButton>
                     </form>
                     <p className="text-sm font-light text-white">
                         Already have an account? <a href="/auth" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>

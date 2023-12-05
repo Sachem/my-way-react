@@ -53,7 +53,7 @@ export default function Login(props) {
                         <IonInput type="password" name="password" id="password" placeholder="••••••••" value={password} onChange={e => setPassword(e.target.value)} required=""></IonInput>
                     </IonItem>
                 
-                    <IonButton size="large" type="submit" expand="block">Login</IonButton>
+                    <IonButton type="submit" expand="block">Login</IonButton>
                 </form>
                 <p className="text-sm font-light text-white">
                     Don't have an account yet? <a href="/auth/registration" className="font-medium text-primary-600 hover:underline text-primary-500">Sign up</a>
