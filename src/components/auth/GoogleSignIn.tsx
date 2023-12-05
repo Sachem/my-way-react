@@ -3,6 +3,7 @@ import { IonRow, IonCol, IonGrid, IonButton } from '@ionic/react';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import axios from 'axios';
 import { Capacitor } from '@capacitor/core';
+import GoogleButton from 'react-google-button';
 
 export default function GoogleSignIn(props) {
 

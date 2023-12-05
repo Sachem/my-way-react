@@ -4,9 +4,7 @@ import { useEffect, useState } from 'react';
 import "@codetrix-studio/capacitor-google-auth";
 
 import './AuthPage.css';
-import { GoogleAuth, User } from '@codetrix-studio/capacitor-google-auth';
-import { Redirect, Route } from 'react-router-dom';
-
+import { Route } from 'react-router-dom';
 
 import Login from '../components/auth/Login';
 import Registration from '../components/auth/Registration';
