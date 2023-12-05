@@ -6,13 +6,26 @@ import { Capacitor } from '@capacitor/core';
 
 export default function GoogleSignIn(props) {
 
-    if (Capacitor.getPlatform() != 'web') {
+    const platform = Capacitor.getPlatform();
+    const [loginUrl, setLoginUrl] = useState(null);
+
+    if (platform != 'web') {
         useEffect(() => {
             GoogleAuth.initialize({
                 clientId: '115573134563-ivq857r42h71gnqr8cbcujohi46n58ip.apps.googleusercontent.com',
                 scopes: ['profile', 'email'],
                 grantOfflineAccess: true,
             });
+        }, []);
+    }
+
+    if (platform == 'web') {
+        useEffect(() => {
+            axios.get('/api/auth/socialite/google')
+            .then((response) => {
+                setLoginUrl( response.data.url )
+            })
+            .catch((error) => console.error(error));
         }, []);
     }
 
@@ -41,7 +54,6 @@ export default function GoogleSignIn(props) {
         }
     };
 
-
     return (
         <IonGrid> 
             <IonRow> 
@@ -51,9 +63,20 @@ export default function GoogleSignIn(props) {
             </IonRow>
             <IonRow> 
                 <IonCol size-md="6" size-lg="5" size-xs="12">
-                    <IonButton className="login-button" onClick={() => signIn()} expand="block" fill="solid" color="danger">
-                        Login with Google
-                    </IonButton>
+                    {
+                        platform == 'web' 
+                        ?
+                        (
+                        loginUrl != null && 
+                        <a href={loginUrl}>
+                            <GoogleButton type="dark" className="googleButton" />
+                        </a>
+                        )
+                        :
+                        <IonButton className="login-button" onClick={() => signIn()} expand="block" fill="solid" color="danger">
+                            Login with Google
+                        </IonButton>
+                    }
                 </IonCol>
             </IonRow>
         </IonGrid>
