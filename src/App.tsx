@@ -45,7 +45,7 @@ console.log('sessionStorage.accessToken', sessionStorage.getItem('accessToken'))
       sessionStorage.getItem('accessToken') || ''
   );
   const [loggedIn, setLoggedIn] = useState(
-      sessionStorage.getItem('loggedIn') || false
+      sessionStorage.getItem('loggedIn') == 'true' || false
   );
   console.log('loggedIn', loggedIn);
 
@@ -63,10 +63,9 @@ console.log('sessionStorage.accessToken', sessionStorage.getItem('accessToken'))
   };
 
   const logout = () => {
-      setLoggedIn(false);
       sessionStorage.setItem('loggedIn', 'false');
       sessionStorage.setItem('accessToken', '');
-
+      setLoggedIn(false);
   };
 
   const googleLogin = (result) => {

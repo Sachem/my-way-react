@@ -1,9 +1,8 @@
 import { IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonIcon, IonPage, IonSegment, IonSegmentButton, IonTitle, IonToolbar } from '@ionic/react';
-import { addCircleOutline, ellipsisVerticalCircleOutline, home, listOutline, logOutOutline } from 'ionicons/icons';
+import { home, listOutline, logOutOutline } from 'ionicons/icons';
 import { useState } from 'react';
 
 import "@codetrix-studio/capacitor-google-auth";
-import { Plugins } from '@capacitor/core';
 
 import Habits from '../components/Habits';
 import './HabitsPage.css';

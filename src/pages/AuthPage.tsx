@@ -1,5 +1,4 @@
-import { IonButton, IonCol, IonContent, IonFooter, IonGrid, IonHeader, IonIcon, IonImg, IonPage, IonRow, IonText, IonTitle, IonToolbar } from '@ionic/react';
-import { useEffect, useState } from 'react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 
 import "@codetrix-studio/capacitor-google-auth";
 
@@ -12,7 +11,6 @@ import GoogleSignIn from '../components/auth/GoogleSignIn';
 import GoogleCallback from '../components/auth/GoogleCallback';
 
 export default function AuthPage(props) {
-
   return (
     <IonPage>
         <IonHeader>
